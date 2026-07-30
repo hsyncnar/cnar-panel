@@ -10,150 +10,210 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
 /* ============================================================
-   CNAR · Maventa — Ortak Panel
+   CNAR · Maventa — Ortak Panel  ·  v2 tema (aydınlık + karanlık)
    ============================================================ */
+
+/* ---------- KARANLIK (varsayılan) ---------- */
 :root{
-  --bg:#0b0d12;
-  --bg-2:#10131a;
-  --card:#151922;
+  --bg:#0a0c11;
+  --bg-2:#0f1219;
+  --card:#141821;
   --card-2:#1a1f2a;
-  --line:#242b38;
-  --line-2:#2f3847;
-  --txt:#e8ecf3;
-  --txt-2:#98a2b3;
-  --txt-3:#5f6b7e;
+  --line:#222936;
+  --line-2:#2e3745;
+  --txt:#e9edf4;
+  --txt-2:#9aa4b5;
+  --txt-3:#616c80;
   --gold:#f0a83c;
-  --blue:#5b8def;
+  --teal:#2fd0b4;
   --green:#3ecf8e;
+  --blue:#5b8def;
   --red:#f2647a;
   --amber:#ffb020;
-  --r:14px;
-  --shadow:0 12px 40px rgba(0,0,0,.45);
+  /* grafik rolleri */
+  --c-mal:#3987e5;
+  --c-kar:#199e70;
+  --c-oran:#f0a83c;
+  --c-grid:#222936;
+  --shadow:0 18px 50px rgba(0,0,0,.5);
+  --glass:rgba(10,12,17,.72);
+  --r:16px;
+}
+
+/* ---------- AYDINLIK ---------- */
+:root[data-theme="light"]{
+  --bg:#eef1f6;
+  --bg-2:#f7f9fc;
+  --card:#ffffff;
+  --card-2:#f3f6fa;
+  --line:#e0e5ee;
+  --line-2:#c9d2e0;
+  --txt:#111725;
+  --txt-2:#4f5b73;
+  --txt-3:#7d8798;
+  --gold:#b8770c;
+  --teal:#0d8f7c;
+  --green:#0f8a5f;
+  --blue:#2a6fd0;
+  --red:#cf3350;
+  --amber:#a86f00;
+  --c-mal:#2a78d6;
+  --c-kar:#1baf7a;
+  --c-oran:#eda100;
+  --c-grid:#e0e5ee;
+  --shadow:0 14px 40px rgba(23,35,60,.10);
+  --glass:rgba(255,255,255,.8);
 }
 
 *{box-sizing:border-box}
 html,body{height:100%}
 body{
   margin:0;
-  background:
-    radial-gradient(1100px 600px at 12% -10%, #1a2033 0%, transparent 60%),
-    radial-gradient(900px 500px at 100% 0%, #1b1626 0%, transparent 55%),
-    var(--bg);
+  background:var(--bg);
   color:var(--txt);
   font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
   -webkit-font-smoothing:antialiased;
+  transition:background .4s ease, color .4s ease;
+}
+:root:not([data-theme="light"]) body{
+  background:
+    radial-gradient(1200px 620px at 8% -12%, #182034 0%, transparent 62%),
+    radial-gradient(900px 520px at 102% -4%, #1d1526 0%, transparent 58%),
+    var(--bg);
+}
+:root[data-theme="light"] body{
+  background:
+    radial-gradient(1100px 560px at 6% -14%, #dfe8fb 0%, transparent 60%),
+    radial-gradient(900px 480px at 104% -6%, #fbe8d8 0%, transparent 58%),
+    var(--bg);
 }
 h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.02em}
 button{font-family:inherit}
 a{color:inherit}
 
-/* ---------- Kilit durumunda bulanıklaştırma ---------- */
-#app{
-  transition:filter .6s ease, opacity .6s ease, transform .6s ease;
-  min-height:100vh;
-  display:flex;flex-direction:column;
-}
-body.locked #app{
-  filter:blur(9px) saturate(.7) brightness(.75);
-  opacity:.85;
-  transform:scale(1.012);
-  pointer-events:none;
-  user-select:none;
-}
+/* kilitliyken bulanıklaştırma */
+#app{transition:filter .6s ease, opacity .6s ease;min-height:100vh;display:flex;flex-direction:column}
+body.locked #app{filter:blur(10px) saturate(.65);opacity:.8;pointer-events:none;user-select:none}
 body.locked{overflow:hidden}
 
 /* ================= TOPBAR ================= */
 .topbar{
-  display:flex;align-items:center;justify-content:space-between;gap:16px;
-  padding:14px 26px;
+  display:flex;align-items:center;justify-content:space-between;gap:18px;
+  padding:13px 26px;
   border-bottom:1px solid var(--line);
-  background:rgba(11,13,18,.72);
-  backdrop-filter:blur(14px);
-  position:sticky;top:0;z-index:40;
-  flex-wrap:wrap;
+  background:var(--glass);
+  backdrop-filter:blur(16px);
+  position:sticky;top:0;z-index:40;flex-wrap:wrap;
+}
+.topbar::after{
+  content:'';position:absolute;left:0;right:0;bottom:-1px;height:2px;
+  background:linear-gradient(90deg,var(--gold),var(--teal),transparent);
+  opacity:.85;
 }
 .brand{display:flex;align-items:center;gap:12px}
 .brand-mark{
-  width:40px;height:40px;border-radius:11px;
+  width:42px;height:42px;border-radius:13px;
   background:linear-gradient(135deg,var(--gold),#e0632c);
-  display:grid;place-items:center;
-  font-weight:800;font-size:15px;color:#1a1206;letter-spacing:-.02em;
-  box-shadow:0 6px 18px rgba(240,168,60,.28);
+  display:grid;place-items:center;font-weight:800;font-size:15px;color:#1a1206;
+  box-shadow:0 8px 22px rgba(240,168,60,.32);
 }
 .brand-text{display:flex;flex-direction:column;line-height:1.25}
 .brand-text strong{font-size:14.5px}
-.brand-text span{font-size:11.5px;color:var(--txt-3);letter-spacing:.02em}
+.brand-text span{font-size:11.5px;color:var(--txt-3)}
 
-.topbar-right{display:flex;align-items:center;gap:12px}
+.topbar-right{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.chip-btn{
+  width:36px;height:36px;border-radius:11px;border:1px solid var(--line-2);
+  background:var(--card-2);color:var(--txt-2);cursor:pointer;font-size:15px;
+  display:grid;place-items:center;transition:.16s;
+}
+.chip-btn:hover{color:var(--txt);border-color:var(--txt-3)}
+
 .session-chip{
-  display:flex;align-items:center;gap:9px;
-  padding:7px 13px;border-radius:999px;
-  background:rgba(62,207,142,.09);
-  border:1px solid rgba(62,207,142,.25);
+  display:flex;align-items:center;gap:9px;padding:7px 13px;border-radius:999px;
+  background:color-mix(in srgb,var(--green) 12%,transparent);
+  border:1px solid color-mix(in srgb,var(--green) 32%,transparent);
 }
-.session-chip .label{font-size:11px;color:var(--txt-2);letter-spacing:.04em;text-transform:uppercase}
-.session-chip .timer{
-  font-family:'JetBrains Mono',monospace;font-weight:700;font-size:14px;
-  color:var(--green);font-variant-numeric:tabular-nums;
-}
-.pulse{
-  width:7px;height:7px;border-radius:50%;background:var(--green);
-  box-shadow:0 0 0 0 rgba(62,207,142,.6);animation:pulse 2s infinite;
-}
+.session-chip .label{font-size:10.5px;color:var(--txt-2);letter-spacing:.05em;text-transform:uppercase;font-weight:600}
+.session-chip .timer{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:14px;color:var(--green);font-variant-numeric:tabular-nums}
+.pulse{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 2s infinite}
 @keyframes pulse{
-  0%{box-shadow:0 0 0 0 rgba(62,207,142,.55)}
-  70%{box-shadow:0 0 0 8px rgba(62,207,142,0)}
-  100%{box-shadow:0 0 0 0 rgba(62,207,142,0)}
+  0%{box-shadow:0 0 0 0 color-mix(in srgb,var(--green) 55%,transparent)}
+  70%{box-shadow:0 0 0 8px transparent}100%{box-shadow:0 0 0 0 transparent}
 }
-.who{display:flex;align-items:center;gap:9px;padding-left:4px}
+.who{display:flex;align-items:center;gap:9px}
 .who img{width:34px;height:34px;border-radius:50%;object-fit:cover;border:2px solid var(--line-2)}
 .who-text{display:flex;flex-direction:column;line-height:1.25}
 .who-text strong{font-size:13px}
 .who-text span{font-size:10.5px;color:var(--txt-3)}
 
+/* ================= CANLI ŞERİT ================= */
+.livebar{
+  display:flex;align-items:center;gap:20px;flex-wrap:wrap;
+  padding:10px 26px;border-bottom:1px solid var(--line);
+  background:var(--bg-2);font-size:13px;
+}
+.lb{display:flex;align-items:center;gap:9px;color:var(--txt-2)}
+.lb .ico{font-size:15px;line-height:1}
+.lb b{color:var(--txt);font-weight:600}
+.lb .mono{font-family:'JetBrains Mono',monospace;font-variant-numeric:tabular-nums;font-weight:700;font-size:15px;color:var(--txt)}
+.lb-sep{width:1px;height:20px;background:var(--line)}
+.lb-live{margin-left:auto;display:flex;align-items:center;gap:10px}
+.mini-av{
+  display:flex;align-items:center;gap:7px;padding:4px 11px 4px 4px;border-radius:999px;
+  background:var(--card-2);border:1px solid var(--line);font-size:12px;color:var(--txt-3);
+}
+.mini-av img{width:24px;height:24px;border-radius:50%;object-fit:cover;filter:grayscale(1);opacity:.55}
+.mini-av.on{border-color:color-mix(in srgb,var(--green) 45%,transparent);background:color-mix(in srgb,var(--green) 10%,transparent);color:var(--txt-2)}
+.mini-av.on img{filter:none;opacity:1}
+.mini-av .t{font-family:'JetBrains Mono',monospace;font-weight:700;color:var(--green);font-size:12px}
+
 /* ================= TABS ================= */
 .tabs{
-  display:flex;gap:4px;padding:0 22px;
-  border-bottom:1px solid var(--line);
-  background:rgba(16,19,26,.5);
-  overflow-x:auto;scrollbar-width:none;
-  position:sticky;top:69px;z-index:35;
+  display:flex;gap:6px;padding:11px 22px;
+  border-bottom:1px solid var(--line);background:var(--glass);
+  backdrop-filter:blur(12px);overflow-x:auto;scrollbar-width:none;
+  position:sticky;top:68px;z-index:35;
 }
 .tabs::-webkit-scrollbar{display:none}
 .tab{
-  background:none;border:0;color:var(--txt-3);
-  padding:14px 16px;font-size:13.5px;font-weight:600;cursor:pointer;
-  border-bottom:2px solid transparent;white-space:nowrap;transition:.15s;
+  background:transparent;border:1px solid transparent;color:var(--txt-3);
+  padding:8px 15px;font-size:13.5px;font-weight:600;cursor:pointer;
+  border-radius:10px;white-space:nowrap;transition:.16s;
 }
-.tab:hover{color:var(--txt-2)}
-.tab.active{color:var(--gold);border-bottom-color:var(--gold)}
+.tab:hover{color:var(--txt-2);background:var(--card-2)}
+.tab.active{
+  color:var(--gold);background:color-mix(in srgb,var(--gold) 13%,transparent);
+  border-color:color-mix(in srgb,var(--gold) 32%,transparent);
+}
 
-.wrap{max-width:1180px;width:100%;margin:0 auto;padding:26px 22px 60px;flex:1}
+.wrap{max-width:1220px;width:100%;margin:0 auto;padding:26px 22px 60px;flex:1}
 .panel{display:none;animation:fade .35s ease}
 .panel.active{display:block}
 @keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
 /* ================= HERO / HEAD ================= */
-.hero{
-  display:flex;justify-content:space-between;align-items:flex-end;gap:20px;
-  margin-bottom:22px;flex-wrap:wrap;
-}
-.hero h1{font-size:30px}
+.hero{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;margin-bottom:22px;flex-wrap:wrap}
+.hero h1{font-size:31px}
 .sub{margin:6px 0 0;color:var(--txt-2);font-size:14px}
 .hero-date{text-align:right;display:flex;flex-direction:column}
 .hero-date span{font-size:19px;font-weight:700}
 .hero-date small{color:var(--txt-3);font-size:12px}
 .section-head{margin-bottom:20px}
-.section-head h1{font-size:26px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.section-head h1{font-size:27px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
 
 /* ================= STAT ================= */
 .stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-bottom:20px}
 .stat{
-  background:linear-gradient(160deg,var(--card),var(--bg-2));
-  border:1px solid var(--line);border-radius:var(--r);padding:16px 18px;
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  padding:17px 19px;position:relative;overflow:hidden;box-shadow:var(--shadow);
 }
-.stat .k{font-size:11px;color:var(--txt-3);text-transform:uppercase;letter-spacing:.06em;font-weight:600}
-.stat .v{font-size:26px;font-weight:800;margin-top:7px;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.stat::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--txt-3);opacity:.5}
+.stat.gold::before{background:var(--gold);opacity:1}
+.stat.green::before{background:var(--green);opacity:1}
+.stat.blue::before{background:var(--blue);opacity:1}
+.stat .k{font-size:10.5px;color:var(--txt-3);text-transform:uppercase;letter-spacing:.07em;font-weight:700}
+.stat .v{font-size:27px;font-weight:800;margin-top:7px;letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 .stat .d{font-size:11.5px;color:var(--txt-3);margin-top:3px}
 .stat.gold .v{color:var(--gold)}
 .stat.green .v{color:var(--green)}
@@ -161,109 +221,113 @@ body.locked{overflow:hidden}
 
 /* ================= CARD ================= */
 .card{
-  background:var(--card);border:1px solid var(--line);
-  border-radius:var(--r);padding:18px;margin-bottom:18px;
+  background:var(--card);border:1px solid var(--line);border-radius:var(--r);
+  padding:19px;margin-bottom:18px;box-shadow:var(--shadow);
 }
 .card.no-pad{padding:0;overflow:hidden}
-.card-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:14px}
-.card-head.pad{padding:18px 18px 0;margin-bottom:12px}
+.card-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:15px;flex-wrap:wrap}
+.card-head.pad{padding:19px 19px 0;margin-bottom:12px}
 .card-head h2{font-size:15px}
 .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-@media(max-width:820px){.grid-2{grid-template-columns:1fr}}
+@media(max-width:860px){.grid-2{grid-template-columns:1fr}}
 
 /* ================= BUTTONS ================= */
 .btn{
-  background:var(--gold);color:#20160a;border:0;border-radius:9px;
-  padding:9px 15px;font-weight:700;font-size:13px;cursor:pointer;transition:.15s;
+  background:var(--gold);color:#1c1204;border:0;border-radius:10px;
+  padding:9px 16px;font-weight:700;font-size:13px;cursor:pointer;transition:.16s;
 }
-.btn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+:root[data-theme="light"] .btn:not(.ghost):not(.danger){color:#fff}
+.btn:hover{filter:brightness(1.07);transform:translateY(-1px)}
 .btn.sm{padding:6px 12px;font-size:12px}
 .btn.ghost{background:transparent;color:var(--txt-2);border:1px solid var(--line-2)}
 .btn.ghost:hover{color:var(--txt);border-color:var(--txt-3)}
-.btn.danger{background:transparent;color:var(--red);border:1px solid rgba(242,100,122,.3)}
+.btn.danger{background:transparent;color:var(--red);border:1px solid color-mix(in srgb,var(--red) 34%,transparent)}
 .btn:disabled{opacity:.4;cursor:not-allowed;transform:none}
 body[data-role="viewer"] .admin-only{display:none !important}
 
+/* ================= UYARI ŞERİDİ ================= */
+.notice{
+  display:flex;align-items:flex-start;gap:12px;padding:14px 16px;margin-bottom:18px;
+  border-radius:12px;font-size:13px;line-height:1.55;
+  background:color-mix(in srgb,var(--amber) 12%,transparent);
+  border:1px solid color-mix(in srgb,var(--amber) 34%,transparent);color:var(--txt-2);
+}
+.notice b{color:var(--txt)}
+.notice .btn{flex:none}
+
 /* ================= PRESENCE ================= */
 .presence{display:flex;flex-direction:column;gap:11px}
-.pres{
-  display:flex;align-items:center;gap:12px;padding:11px 13px;
-  background:var(--card-2);border:1px solid var(--line);border-radius:11px;
-}
-.pres img{width:42px;height:42px;border-radius:50%;object-fit:cover;border:2px solid var(--line-2)}
-.pres.online img{border-color:var(--green)}
+.pres{display:flex;align-items:center;gap:12px;padding:12px 14px;background:var(--card-2);border:1px solid var(--line);border-radius:12px}
+.pres img{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid var(--line-2)}
+.pres.online img{border-color:var(--green);box-shadow:0 0 0 3px color-mix(in srgb,var(--green) 18%,transparent)}
 .pres .pi{flex:1;display:flex;flex-direction:column;line-height:1.35}
 .pres .pi strong{font-size:13.5px}
 .pres .pi span{font-size:11.5px;color:var(--txt-3)}
 .dot{width:8px;height:8px;border-radius:50%;background:var(--txt-3);flex:none}
-.pres.online .dot{background:var(--green);box-shadow:0 0 8px rgba(62,207,142,.7)}
-.pres .live{font-family:'JetBrains Mono',monospace;font-size:12.5px;color:var(--green);font-weight:700}
+.pres.online .dot{background:var(--green);box-shadow:0 0 8px color-mix(in srgb,var(--green) 70%,transparent)}
+.pres .live{font-family:'JetBrains Mono',monospace;font-size:13px;color:var(--green);font-weight:700}
+.pres.me{border-color:color-mix(in srgb,var(--gold) 30%,transparent)}
 
 /* ================= LIST / FEED ================= */
 .mini-list{display:flex;flex-direction:column;gap:9px;max-height:250px;overflow:auto}
-.mini{
-  display:flex;align-items:center;gap:10px;padding:10px 12px;
-  background:var(--card-2);border-radius:10px;border:1px solid var(--line);font-size:13px;
-}
+.mini{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--card-2);border-radius:10px;border:1px solid var(--line);font-size:13px}
 .mini .st{width:8px;height:8px;border-radius:50%;flex:none}
 .mini .t{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .mini .o{font-size:11px;color:var(--txt-3);flex:none}
-
-.feed{display:flex;flex-direction:column;gap:0;max-height:340px;overflow:auto}
+.feed{display:flex;flex-direction:column;max-height:340px;overflow:auto}
 .fe{display:flex;gap:12px;padding:11px 2px;border-bottom:1px solid var(--line)}
 .fe:last-child{border-bottom:0}
 .fe img{width:28px;height:28px;border-radius:50%;object-fit:cover;flex:none}
 .fe .fc{flex:1;font-size:13px;line-height:1.5}
-.fe .fc b{font-weight:600}
-.fe .ft{font-size:11px;color:var(--txt-3);white-space:nowrap;font-variant-numeric:tabular-nums}
+.fe .ft{font-size:11px;color:var(--txt-3);white-space:nowrap}
 
-/* ================= STORES ================= */
-.store-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px;margin-bottom:20px}
+/* ================= MAĞAZA KARTLARI ================= */
+.store-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:16px;margin-bottom:20px}
 .store{
   background:var(--card);border:1px solid var(--line);border-radius:var(--r);
-  padding:20px;position:relative;overflow:hidden;transition:.2s;
+  padding:0;overflow:hidden;transition:.2s;box-shadow:var(--shadow);display:flex;flex-direction:column;
 }
-.store:hover{transform:translateY(-2px);border-color:var(--line-2)}
-.store::before{content:'';position:absolute;inset:0 0 auto 0;height:3px;background:var(--acc)}
-.store .sb{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--acc)}
-.store h3{font-size:19px;margin:7px 0 3px}
+.store:hover{transform:translateY(-3px);border-color:var(--line-2)}
+.store-logo{
+  height:88px;display:grid;place-items:center;
+  border-bottom:1px solid var(--line);position:relative;
+}
+.store-logo svg{height:34px;width:auto;max-width:78%}
+.store-logo::after{content:'';position:absolute;left:0;right:0;bottom:0;height:3px;background:var(--acc)}
+.store-body{padding:16px 18px 18px;display:flex;flex-direction:column;flex:1}
+.store .sb{font-size:10.5px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--acc)}
+.store h3{font-size:19px;margin:6px 0 3px}
 .store .sm{font-size:12.5px;color:var(--txt-3)}
-.store .stag{
-  display:inline-block;margin-top:11px;padding:3px 9px;border-radius:6px;
-  font-size:10.5px;font-weight:600;background:var(--card-2);color:var(--txt-2);border:1px solid var(--line);
-}
+.store .stag{display:inline-block;margin-top:11px;padding:4px 10px;border-radius:7px;font-size:10.5px;font-weight:600;background:var(--card-2);color:var(--txt-2);border:1px solid var(--line);align-self:flex-start}
 .store .sl{display:flex;flex-direction:column;gap:7px;margin-top:15px}
 .slink{
   display:flex;align-items:center;justify-content:space-between;
-  padding:10px 13px;border-radius:9px;text-decoration:none;font-size:13px;font-weight:600;
+  padding:10px 13px;border-radius:10px;text-decoration:none;font-size:13px;font-weight:600;
   background:var(--card-2);border:1px solid var(--line);color:var(--txt-2);transition:.15s;
 }
 .slink:hover{background:var(--line);color:var(--txt)}
-.slink.primary{background:color-mix(in srgb,var(--acc) 14%,transparent);border-color:color-mix(in srgb,var(--acc) 35%,transparent);color:var(--acc)}
-.slink .ar{opacity:.5;font-size:15px}
-
-.badge{
-  font-size:11px;font-weight:700;padding:4px 10px;border-radius:7px;
-  background:var(--card-2);border:1px solid var(--line);color:var(--txt-2);letter-spacing:.02em;
+.slink.primary{
+  background:color-mix(in srgb,var(--acc) 15%,transparent);
+  border-color:color-mix(in srgb,var(--acc) 40%,transparent);color:var(--acc);
 }
-.badge.amazon{color:#ff9900;border-color:rgba(255,153,0,.3);background:rgba(255,153,0,.09)}
+.slink .ar{opacity:.55;font-size:15px}
 
-.notes{
-  width:100%;background:var(--bg-2);border:1px solid var(--line);border-radius:10px;
-  color:var(--txt);padding:13px;font-family:inherit;font-size:13.5px;resize:vertical;line-height:1.6;
-}
+.badge{font-size:11px;font-weight:700;padding:4px 10px;border-radius:8px;background:var(--card-2);border:1px solid var(--line);color:var(--txt-2)}
+.badge.amazon{color:#e8890a;border-color:rgba(232,137,10,.35);background:rgba(232,137,10,.1)}
+
+.notes{width:100%;background:var(--bg-2);border:1px solid var(--line);border-radius:11px;color:var(--txt);padding:13px;font-family:inherit;font-size:13.5px;resize:vertical;line-height:1.6}
 .notes:focus{outline:none;border-color:var(--gold)}
 .notes-foot{display:flex;justify-content:space-between;align-items:center;margin-top:11px}
 .muted{color:var(--txt-3);font-size:12px}
 
-/* ================= TOOLBAR ================= */
+/* ================= TOOLBAR / FORM ================= */
 .toolbar{display:flex;align-items:flex-end;gap:14px;margin-bottom:16px;flex-wrap:wrap}
 .spacer{flex:1}
 .field{display:flex;flex-direction:column;gap:5px}
-.field label{font-size:11px;color:var(--txt-3);text-transform:uppercase;letter-spacing:.05em;font-weight:600}
-select,input[type=text],input[type=number],input[type=date]{
-  background:var(--bg-2);border:1px solid var(--line);border-radius:9px;
-  color:var(--txt);padding:9px 12px;font-family:inherit;font-size:13.5px;
+.field label{font-size:10.5px;color:var(--txt-3);text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+select,input[type=text],input[type=number],input[type=date],input[type=password]{
+  background:var(--bg-2);border:1px solid var(--line);border-radius:10px;color:var(--txt);
+  padding:9px 12px;font-family:inherit;font-size:13.5px;
 }
 select:focus,input:focus,textarea:focus{outline:none;border-color:var(--gold)}
 .mini-select{padding:6px 10px;font-size:12.5px}
@@ -271,96 +335,72 @@ select:focus,input:focus,textarea:focus{outline:none;border-color:var(--gold)}
 .stock-totals div{display:flex;flex-direction:column;line-height:1.3}
 .stock-totals .tk{font-size:10.5px;color:var(--txt-3);text-transform:uppercase;letter-spacing:.05em}
 .stock-totals .tv{font-size:16px;font-weight:800;font-variant-numeric:tabular-nums}
-
 .filters{display:flex;gap:7px;flex-wrap:wrap}
-.chip{
-  background:var(--card-2);border:1px solid var(--line);color:var(--txt-2);
-  padding:7px 14px;border-radius:999px;font-size:12.5px;font-weight:600;cursor:pointer;transition:.15s;
-}
+.chip{background:var(--card-2);border:1px solid var(--line);color:var(--txt-2);padding:7px 14px;border-radius:999px;font-size:12.5px;font-weight:600;cursor:pointer;transition:.15s}
 .chip:hover{border-color:var(--line-2)}
-.chip.active{background:rgba(240,168,60,.13);border-color:rgba(240,168,60,.4);color:var(--gold)}
+.chip.active{background:color-mix(in srgb,var(--gold) 14%,transparent);border-color:color-mix(in srgb,var(--gold) 40%,transparent);color:var(--gold)}
 
 /* ================= TABLE ================= */
 .table-scroll{overflow-x:auto}
 .table{width:100%;border-collapse:collapse;font-size:13px;min-width:640px}
-.table th{
-  text-align:left;padding:12px 14px;font-size:10.5px;text-transform:uppercase;
-  letter-spacing:.06em;color:var(--txt-3);font-weight:700;
-  border-bottom:1px solid var(--line);background:var(--bg-2);white-space:nowrap;
-}
+.table th{text-align:left;padding:12px 14px;font-size:10.5px;text-transform:uppercase;letter-spacing:.07em;color:var(--txt-3);font-weight:700;border-bottom:1px solid var(--line);background:var(--bg-2);white-space:nowrap}
 .table td{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:middle}
 .table tr:last-child td{border-bottom:0}
-.table tbody tr:hover{background:rgba(255,255,255,.02)}
+.table tbody tr:hover{background:var(--card-2)}
 .table .num{text-align:right;font-variant-numeric:tabular-nums;font-family:'JetBrains Mono',monospace}
 .table td.num{font-size:12.5px}
 .table .who-cell{display:flex;align-items:center;gap:9px}
 .table .who-cell img{width:26px;height:26px;border-radius:50%;object-fit:cover}
 
-.pill{
-  display:inline-block;padding:4px 10px;border-radius:7px;font-size:11px;font-weight:700;white-space:nowrap;
-}
-.pill.todo{background:rgba(152,162,179,.14);color:var(--txt-2)}
-.pill.doing{background:rgba(91,141,239,.16);color:var(--blue)}
-.pill.done{background:rgba(62,207,142,.15);color:var(--green)}
-.pill.planned{background:rgba(152,162,179,.14);color:var(--txt-2)}
-.pill.ordered{background:rgba(255,176,32,.15);color:var(--amber)}
-.pill.shipped{background:rgba(91,141,239,.16);color:var(--blue)}
-.pill.received{background:rgba(62,207,142,.15);color:var(--green)}
+.pill{display:inline-block;padding:4px 10px;border-radius:8px;font-size:11px;font-weight:700;white-space:nowrap}
+.pill.todo,.pill.planned{background:color-mix(in srgb,var(--txt-3) 20%,transparent);color:var(--txt-2)}
+.pill.doing,.pill.shipped{background:color-mix(in srgb,var(--blue) 18%,transparent);color:var(--blue)}
+.pill.done,.pill.received{background:color-mix(in srgb,var(--green) 18%,transparent);color:var(--green)}
+.pill.ordered{background:color-mix(in srgb,var(--amber) 20%,transparent);color:var(--amber)}
 
 .empty{padding:34px;text-align:center;color:var(--txt-3);font-size:13.5px}
-.hint{
-  padding:13px 16px;border-radius:10px;font-size:13px;color:var(--txt-2);
-  background:rgba(91,141,239,.07);border:1px solid rgba(91,141,239,.2);
-}
+.hint{padding:13px 16px;border-radius:11px;font-size:13px;color:var(--txt-2);background:color-mix(in srgb,var(--blue) 9%,transparent);border:1px solid color-mix(in srgb,var(--blue) 26%,transparent)}
 
 /* ================= BOARD ================= */
-.board{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
-.task{
-  background:var(--card);border:1px solid var(--line);border-radius:12px;padding:15px;
-  display:flex;flex-direction:column;gap:10px;transition:.18s;
-}
+.board{display:grid;grid-template-columns:repeat(auto-fill,minmax(285px,1fr));gap:14px}
+.task{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px;transition:.18s;box-shadow:var(--shadow)}
 .task:hover{border-color:var(--line-2);transform:translateY(-2px)}
 .task .th{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
 .task h3{font-size:14.5px;line-height:1.4;font-weight:600}
 .task .tn{font-size:12.5px;color:var(--txt-2);line-height:1.55;white-space:pre-wrap}
-.task .tf{display:flex;align-items:center;gap:9px;font-size:11.5px;color:var(--txt-3);margin-top:2px}
+.task .tf{display:flex;align-items:center;gap:9px;font-size:11.5px;color:var(--txt-3)}
 .task .tf img{width:22px;height:22px;border-radius:50%;object-fit:cover}
 .task .ta{display:flex;gap:6px;margin-top:4px}
-.task .ta button{
-  flex:1;background:var(--card-2);border:1px solid var(--line);color:var(--txt-2);
-  padding:6px;border-radius:7px;font-size:11.5px;cursor:pointer;font-weight:600;
-}
+.task .ta button{flex:1;background:var(--card-2);border:1px solid var(--line);color:var(--txt-2);padding:7px;border-radius:8px;font-size:11.5px;cursor:pointer;font-weight:600}
 .task .ta button:hover{border-color:var(--line-2);color:var(--txt)}
 
-/* ================= USER STAT CARD ================= */
-.ustat{
-  background:linear-gradient(160deg,var(--card),var(--bg-2));
-  border:1px solid var(--line);border-radius:var(--r);padding:20px;
-}
+/* ================= USER STAT ================= */
+.ustat{background:var(--card);border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow)}
 .ustat .uh{display:flex;align-items:center;gap:13px;margin-bottom:16px}
-.ustat .uh img{width:54px;height:54px;border-radius:50%;object-fit:cover;border:2px solid var(--line-2)}
+.ustat .uh img{width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid var(--line-2)}
+.ustat.online .uh img{border-color:var(--green)}
 .ustat .uh .un{display:flex;flex-direction:column;line-height:1.35}
 .ustat .uh strong{font-size:16px}
 .ustat .uh span{font-size:12px;color:var(--txt-3)}
+.ustat .now{margin-left:auto;text-align:right}
+.ustat .now .nl{font-size:10px;color:var(--txt-3);text-transform:uppercase;letter-spacing:.06em;font-weight:700}
+.ustat .now .nv{font-family:'JetBrains Mono',monospace;font-weight:700;font-size:16px;color:var(--green)}
 .ugrid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.ug{background:var(--card-2);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
-.ug .k{font-size:10.5px;color:var(--txt-3);text-transform:uppercase;letter-spacing:.05em;font-weight:600}
+.ug{background:var(--card-2);border:1px solid var(--line);border-radius:11px;padding:12px 14px}
+.ug .k{font-size:10.5px;color:var(--txt-3);text-transform:uppercase;letter-spacing:.05em;font-weight:700}
 .ug .v{font-size:19px;font-weight:800;margin-top:5px;font-variant-numeric:tabular-nums;font-family:'JetBrains Mono',monospace}
 
 /* ================= RAPOR / GRAFİK ================= */
-.unit{font-size:11px;font-weight:600;color:var(--txt-3);letter-spacing:.02em;margin-left:6px}
+.unit{font-size:11px;font-weight:600;color:var(--txt-3);margin-left:6px}
 .legend{display:flex;gap:16px;align-items:center}
 .legend span{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--txt-2);font-weight:600}
 .legend i{width:11px;height:11px;border-radius:3px;display:inline-block}
 .chart-scroll{overflow-x:auto;padding-bottom:4px}
-.chart-scroll::-webkit-scrollbar{height:8px}
-.chart-scroll::-webkit-scrollbar-thumb{background:var(--line-2);border-radius:4px}
 .chart svg,#chartBar svg{display:block;max-width:100%;height:auto}
 .chart{min-height:200px}
-
 .vtip{
   position:fixed;z-index:400;pointer-events:none;display:none;
-  background:rgba(16,19,26,.97);border:1px solid var(--line-2);border-radius:10px;
+  background:var(--card);border:1px solid var(--line-2);border-radius:11px;
   padding:11px 13px;box-shadow:var(--shadow);font-size:12.5px;min-width:190px;
 }
 .vtip b:first-child{display:block;font-size:13px;margin-bottom:3px}
@@ -368,12 +408,10 @@ select:focus,input:focus,textarea:focus{outline:none;border-color:var(--gold)}
 .vtip span{display:flex;align-items:center;gap:8px;padding:3px 0;color:var(--txt-2)}
 .vtip span em{width:9px;height:9px;border-radius:2px;flex:none}
 .vtip span b{margin-left:auto;color:var(--txt);font-family:'JetBrains Mono',monospace;font-size:12px}
-
 #alimTable th[data-sort]{cursor:pointer;user-select:none}
-#alimTable th[data-sort]:hover{color:var(--txt-2)}
 #alimTable th.sorted{color:var(--gold)}
 .alim-row{cursor:pointer}
-.alim-row.acik{background:rgba(240,168,60,.06)}
+.alim-row.acik{background:color-mix(in srgb,var(--gold) 8%,transparent)}
 .alim-row .exp{color:var(--txt-3);font-size:11px}
 .tnote{display:block;font-size:11px;color:var(--txt-3);margin-top:2px}
 tr.detay td{padding:0;background:var(--bg-2)}
@@ -381,143 +419,81 @@ tr.detay td{padding:0;background:var(--bg-2)}
 .detay-h{font-size:11.5px;color:var(--txt-3);margin-bottom:10px;font-weight:600}
 .table.sub{min-width:720px;font-size:12.5px}
 .table.sub th{background:transparent;padding:8px 10px}
-.table.sub td{padding:8px 10px;border-bottom:1px solid var(--line)}
+.table.sub td{padding:8px 10px}
 .table code{font-family:'JetBrains Mono',monospace;font-size:11.5px;color:var(--txt)}
-.mini-input{
-  background:var(--bg-2);border:1px solid var(--line);border-radius:8px;color:var(--txt);
-  padding:7px 11px;font-family:inherit;font-size:12.5px;min-width:230px;
-}
+.mini-input{background:var(--bg-2);border:1px solid var(--line);border-radius:9px;color:var(--txt);padding:7px 11px;font-family:inherit;font-size:12.5px;min-width:230px}
 .mini-input:focus{outline:none;border-color:var(--gold)}
 
 /* ================= FOOT ================= */
-.foot{
-  border-top:1px solid var(--line);padding:14px 26px;
-  display:flex;align-items:center;gap:14px;font-size:12px;
-}
-.mode-badge{
-  padding:4px 10px;border-radius:6px;font-size:11px;font-weight:700;
-  background:var(--card-2);border:1px solid var(--line);color:var(--txt-2);
-}
-.mode-badge.live{color:var(--green);border-color:rgba(62,207,142,.3);background:rgba(62,207,142,.08)}
-.mode-badge.local{color:var(--amber);border-color:rgba(255,176,32,.3);background:rgba(255,176,32,.08)}
+.foot{border-top:1px solid var(--line);padding:14px 26px;display:flex;align-items:center;gap:14px;font-size:12px;flex-wrap:wrap}
+.mode-badge{padding:5px 11px;border-radius:8px;font-size:11px;font-weight:700;background:var(--card-2);border:1px solid var(--line);color:var(--txt-2);cursor:pointer}
+.mode-badge.live{color:var(--green);border-color:color-mix(in srgb,var(--green) 34%,transparent);background:color-mix(in srgb,var(--green) 10%,transparent)}
+.mode-badge.local{color:var(--amber);border-color:color-mix(in srgb,var(--amber) 34%,transparent);background:color-mix(in srgb,var(--amber) 10%,transparent)}
+.ver{margin-left:auto;color:var(--txt-3);font-size:11px}
 
 /* ============================================================
    KİLİT EKRANI
    ============================================================ */
-.lock{
-  position:fixed;inset:0;z-index:100;
-  display:flex;flex-direction:column;align-items:center;justify-content:center;
-  background:rgba(8,10,14,.55);
-  backdrop-filter:blur(2px);
-  transition:opacity .5s ease, visibility .5s;
-}
+.lock{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;background:color-mix(in srgb,var(--bg) 55%,transparent);backdrop-filter:blur(3px);transition:opacity .5s ease,visibility .5s}
 body:not(.locked) .lock{opacity:0;visibility:hidden;pointer-events:none}
-.lock-inner{
-  width:min(440px,92vw);
-  background:rgba(21,25,34,.93);
-  border:1px solid var(--line-2);
-  border-radius:22px;
-  padding:34px 30px 30px;
-  box-shadow:var(--shadow);
-  text-align:center;
-  position:relative;
-}
+.lock-inner{width:min(450px,92vw);background:var(--card);border:1px solid var(--line-2);border-radius:24px;padding:34px 30px 30px;box-shadow:var(--shadow);text-align:center;position:relative}
 .lock-step{display:none}
 .lock-step.active{display:block;animation:fade .3s ease}
-.lock-logo{
-  width:52px;height:52px;border-radius:15px;margin:0 auto 16px;
-  background:linear-gradient(135deg,var(--gold),#e0632c);
-  display:grid;place-items:center;font-weight:800;font-size:18px;color:#1a1206;
-  box-shadow:0 8px 24px rgba(240,168,60,.3);
-}
+.lock-logo{width:54px;height:54px;border-radius:16px;margin:0 auto 16px;background:linear-gradient(135deg,var(--gold),#e0632c);display:grid;place-items:center;font-weight:800;font-size:18px;color:#1a1206;box-shadow:0 8px 24px rgba(240,168,60,.32)}
 .lock h1{font-size:23px;margin-bottom:6px}
 .lock-sub{color:var(--txt-2);font-size:13.5px;margin:0 0 22px}
 .lock-foot{margin-top:22px;font-size:12px;color:var(--txt-3)}
-
 .who-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
-.wc{
-  background:var(--card-2);border:1px solid var(--line);border-radius:15px;
-  padding:18px 12px;cursor:pointer;transition:.2s;text-align:center;
-}
-.wc:hover{border-color:var(--gold);transform:translateY(-3px);background:var(--card)}
-.wc img{
-  width:76px;height:76px;border-radius:50%;object-fit:cover;
-  border:2px solid var(--line-2);margin-bottom:11px;transition:.2s;
-}
+.wc{background:var(--card-2);border:1px solid var(--line);border-radius:16px;padding:18px 12px;cursor:pointer;transition:.2s;text-align:center}
+.wc:hover{border-color:var(--gold);transform:translateY(-3px)}
+.wc img{width:76px;height:76px;border-radius:50%;object-fit:cover;border:2px solid var(--line-2);margin-bottom:11px;transition:.2s}
 .wc:hover img{border-color:var(--gold)}
 .wc strong{display:block;font-size:13.5px;line-height:1.35}
 .wc span{display:block;font-size:11px;color:var(--txt-3);margin-top:3px}
-
-.back{
-  position:absolute;left:20px;top:20px;background:none;border:0;
-  color:var(--txt-3);font-size:12.5px;cursor:pointer;font-weight:600;
-}
+.back{position:absolute;left:20px;top:20px;background:none;border:0;color:var(--txt-3);font-size:12.5px;cursor:pointer;font-weight:600}
 .back:hover{color:var(--txt)}
-.pin-avatar{
-  width:78px;height:78px;border-radius:50%;object-fit:cover;
-  border:2px solid var(--gold);margin:6px auto 14px;display:block;
-}
+.pin-avatar{width:78px;height:78px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);margin:6px auto 14px;display:block}
 .dots{display:flex;gap:13px;justify-content:center;margin:0 0 24px}
-.dots span{
-  width:13px;height:13px;border-radius:50%;
-  background:transparent;border:2px solid var(--line-2);transition:.2s;
-}
+.dots span{width:13px;height:13px;border-radius:50%;background:transparent;border:2px solid var(--line-2);transition:.2s}
 .dots span.on{background:var(--gold);border-color:var(--gold);transform:scale(1.12)}
 .dots.shake{animation:shake .4s}
-@keyframes shake{
-  0%,100%{transform:translateX(0)}
-  20%{transform:translateX(-9px)}40%{transform:translateX(9px)}
-  60%{transform:translateX(-6px)}80%{transform:translateX(6px)}
-}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-9px)}40%{transform:translateX(9px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
 .keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;max-width:250px;margin:0 auto}
-.keypad button{
-  aspect-ratio:1/1;border-radius:50%;
-  background:var(--card-2);border:1px solid var(--line);
-  color:var(--txt);font-size:20px;font-weight:600;cursor:pointer;transition:.12s;
-  font-family:'JetBrains Mono',monospace;
-}
-.keypad button:hover:not(:disabled){background:var(--line);border-color:var(--line-2)}
+.keypad button{aspect-ratio:1/1;border-radius:50%;background:var(--card-2);border:1px solid var(--line);color:var(--txt);font-size:20px;font-weight:600;cursor:pointer;transition:.12s;font-family:'JetBrains Mono',monospace}
+.keypad button:hover:not(:disabled){background:var(--line)}
 .keypad button:active:not(:disabled){transform:scale(.93)}
 .keypad .blank{opacity:0;pointer-events:none;border:0;background:none}
 .keypad .del{font-size:17px;color:var(--txt-2)}
 .err{color:var(--red);font-size:12.5px;height:18px;margin:14px 0 0;font-weight:600}
 
 /* ================= MODAL ================= */
-.modal-back{
-  position:fixed;inset:0;z-index:200;background:rgba(6,8,12,.72);
-  backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;padding:20px;
-}
+.modal-back{position:fixed;inset:0;z-index:200;background:color-mix(in srgb,var(--bg) 72%,transparent);backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;padding:20px}
 .modal-back.open{display:flex;animation:fade .2s ease}
-.modal{
-  width:min(500px,100%);background:var(--card);border:1px solid var(--line-2);
-  border-radius:16px;padding:24px;box-shadow:var(--shadow);max-height:88vh;overflow:auto;
-}
-.modal h2{font-size:17px;margin-bottom:18px}
+.modal{width:min(540px,100%);background:var(--card);border:1px solid var(--line-2);border-radius:18px;padding:26px;box-shadow:var(--shadow);max-height:88vh;overflow:auto}
+.modal h2{font-size:17px;margin-bottom:6px}
+.modal .msub{font-size:12.5px;color:var(--txt-2);margin:0 0 18px;line-height:1.6}
 .mf{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
-.mf label{font-size:11.5px;color:var(--txt-3);font-weight:600;text-transform:uppercase;letter-spacing:.04em}
-.mf input,.mf select,.mf textarea{
-  background:var(--bg-2);border:1px solid var(--line);border-radius:9px;
-  color:var(--txt);padding:10px 12px;font-family:inherit;font-size:13.5px;width:100%;
-}
+.mf label{font-size:11.5px;color:var(--txt-3);font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+.mf input,.mf select,.mf textarea{background:var(--bg-2);border:1px solid var(--line);border-radius:10px;color:var(--txt);padding:10px 12px;font-family:inherit;font-size:13.5px;width:100%}
 .mf textarea{resize:vertical;min-height:70px;line-height:1.5}
+.mf textarea.code{font-family:'JetBrains Mono',monospace;font-size:12px;min-height:150px}
 .mrow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.macts{display:flex;gap:10px;justify-content:flex-end;margin-top:20px}
+.macts{display:flex;gap:10px;justify-content:flex-end;margin-top:20px;flex-wrap:wrap}
+.steps{font-size:12.5px;color:var(--txt-2);line-height:1.75;padding-left:18px;margin:0 0 16px}
+.steps li{margin-bottom:4px}
+.steps code{background:var(--card-2);padding:1px 5px;border-radius:4px;font-size:11.5px}
 
 /* ================= TOAST ================= */
-.toast{
-  position:fixed;bottom:26px;left:50%;transform:translate(-50%,80px);
-  background:var(--card);border:1px solid var(--line-2);border-radius:11px;
-  padding:12px 20px;font-size:13.5px;font-weight:600;z-index:300;
-  box-shadow:var(--shadow);opacity:0;transition:.3s;pointer-events:none;
-}
+.toast{position:fixed;bottom:26px;left:50%;transform:translate(-50%,80px);background:var(--card);border:1px solid var(--line-2);border-radius:12px;padding:12px 20px;font-size:13.5px;font-weight:600;z-index:300;box-shadow:var(--shadow);opacity:0;transition:.3s;pointer-events:none}
 .toast.show{opacity:1;transform:translate(-50%,0)}
 
-@media(max-width:640px){
+@media(max-width:680px){
   .topbar{padding:12px 16px}
   .who-text,.brand-text span{display:none}
   .wrap{padding:20px 15px 50px}
   .hero h1{font-size:24px}
-  .tabs{top:65px;padding:0 12px}
+  .tabs{top:64px;padding:9px 12px}
+  .livebar{padding:9px 16px;gap:14px;font-size:12px}
   .who-grid{grid-template-columns:1fr}
   .wc{display:flex;align-items:center;gap:14px;text-align:left;padding:13px}
   .wc img{width:52px;height:52px;margin:0}
@@ -553,9 +529,21 @@ body:not(.locked) .lock{opacity:0;visibility:hidden;pointer-events:none}
           <span id="whoRole">—</span>
         </div>
       </div>
+      <button class="chip-btn" id="themeBtn" title="Aydınlık / karanlık">🌙</button>
+      <button class="chip-btn" id="fbBtn" title="Ortak veritabanı ayarı">⚙</button>
       <button class="btn ghost sm" id="logoutBtn" title="Çıkış yap">Çıkış</button>
     </div>
   </header>
+
+  <!-- ============ CANLI ŞERİT ============ -->
+  <div class="livebar">
+    <div class="lb"><span class="ico">🗓</span><b id="lbDate">—</b></div>
+    <div class="lb-sep"></div>
+    <div class="lb"><span class="ico">⏱</span><span class="mono" id="lbClock">--:--:--</span></div>
+    <div class="lb-sep"></div>
+    <div class="lb" id="lbWeather"><span class="ico">🌡</span><span>İstanbul <b>—</b></span></div>
+    <div class="lb-live" id="lbLive"></div>
+  </div>
 
   <nav class="tabs" id="tabs">
     <button class="tab active" data-tab="ozet">Özet</button>
@@ -579,6 +567,16 @@ body:not(.locked) .lock{opacity:0;visibility:hidden;pointer-events:none}
           <span id="todayBig">—</span>
           <small id="todaySmall">—</small>
         </div>
+      </div>
+
+      <div class="notice" id="localNotice" style="display:none">
+        <span style="font-size:17px;line-height:1">⚠️</span>
+        <div style="flex:1">
+          <b>Şu an yerel moddasınız.</b> Giriş saatleri ve görevler yalnızca bu tarayıcıda saklanıyor,
+          bu yüzden karşı tarafın oturumunu göremiyorsunuz. Ortak veritabanını bağladığınızda
+          ikiniz de birbirinizi canlı görürsünüz.
+        </div>
+        <button class="btn sm" id="noticeBtn">Bağla</button>
       </div>
 
       <div class="stat-row" id="statRow"></div>
@@ -806,6 +804,7 @@ body:not(.locked) .lock{opacity:0;visibility:hidden;pointer-events:none}
   <footer class="foot">
     <span id="modeBadge" class="mode-badge">—</span>
     <span class="muted">CNAR LLC · Maventa Home — ortak panel</span>
+    <span class="ver" id="verBadge">—</span>
   </footer>
 </div>
 
@@ -859,49 +858,50 @@ body:not(.locked) .lock{opacity:0;visibility:hidden;pointer-events:none}
 /* ==== 1) AYARLAR ==== */
 /* ============================================================
    CNAR / MAVENTA ORTAK PANEL — AYARLAR
-   Burayı düzenleyerek siteyi özelleştirebilirsiniz.
    ============================================================ */
 
 window.APP_CONFIG = {
 
-  /* --- Giriş şifresi (SHA-256 özeti) ---------------------------------
-     Şu anki şifre: 3416
-     Şifreyi değiştirmek isterseniz tarayıcı konsoluna şunu yazıp
-     çıkan değeri aşağıya yapıştırın:
+  surum: 'v2.0',
+
+  /* --- Giriş şifresi (SHA-256 özeti) --- Şu anki şifre: 3416 --------
+     Değiştirmek için tarayıcı konsolunda:
        crypto.subtle.digest('SHA-256', new TextEncoder().encode('YENISIFRE'))
          .then(b=>console.log([...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')))
   ------------------------------------------------------------------- */
   pinHash: '71eebf8f5760b70c2eb19230bef73d7cc009bbf06695182f42782114b0d53ab7',
 
-  /* --- Kullanıcılar ---------------------------------------------------
-     role: 'admin'  -> her şeyi düzenleyebilir
-     role: 'viewer' -> görüntüler, düzenleyemez
+  /* --- Tema ---------------------------------------------------------
+     Bu saatler arası AYDINLIK, dışında KARANLIK (İstanbul saati).
+  ------------------------------------------------------------------- */
+  gunDogumu: 7,      // 07:00 -> aydınlık
+  gunBatimi: 19,     // 19:00 -> karanlık
+
+  /* --- Hava durumu (İstanbul) --------------------------------------- */
+  hava: { lat: 41.0082, lon: 28.9784, sehir: 'İstanbul' },
+
+  /* --- Kullanıcılar --------------------------------------------------
+     role: 'admin' -> düzenleyebilir · 'viewer' -> sadece görüntüler
   ------------------------------------------------------------------- */
   users: [
-    {
-      id: 'mustafa',
-      name: 'Mustafa Ertuğrul',
-      title: 'Ortak · Operasyon',
-      role: 'viewer',
-      color: '#5b8def'
-    },
-    {
-      id: 'huseyin',
-      name: 'Hüseyin Çınar',
-      title: 'Ortak · Yönetim',
-      role: 'admin',
-      color: '#f0a83c'
-    }
+    { id: 'mustafa', name: 'Mustafa Ertuğrul', title: 'Ortak · Operasyon', role: 'viewer', color: '#5b8def' },
+    { id: 'huseyin', name: 'Hüseyin Çınar',    title: 'Ortak · Yönetim',   role: 'admin',  color: '#f0a83c' }
   ],
 
-  /* --- Mağazalar ve hızlı erişim linkleri --------------------------- */
+  /* --- Mağazalar -----------------------------------------------------
+     logo: kart başlığında görünen SVG. Resmî logo dosyanız varsa
+     buraya <img src="data:image/png;base64,..."> olarak da koyabilirsiniz.
+  ------------------------------------------------------------------- */
   stores: [
     {
-      brand: 'Amazon',
-      store: 'CNAR LLC',
-      market: 'Amazon.ca (Kanada)',
-      accent: '#ff9900',
-      tag: 'Aylık stoklu alım',
+      brand: 'Amazon Seller Central', store: 'CNAR LLC', market: 'Amazon.ca (Kanada)',
+      accent: '#ff9900', tag: 'Aylık stoklu alım', logoBg: '#141821',
+      logo: `<svg viewBox="0 0 220 56" xmlns="http://www.w3.org/2000/svg" aria-label="Amazon Seller Central">
+        <text x="8" y="30" font-family="Inter,sans-serif" font-size="27" font-weight="700" fill="#ffffff" letter-spacing="-1">amazon</text>
+        <path d="M10 38 C 46 52, 96 52, 126 38" stroke="#ff9900" stroke-width="5" fill="none" stroke-linecap="round"/>
+        <path d="M120 33 L131 38 L120 44 Z" fill="#ff9900"/>
+        <text x="140" y="34" font-family="Inter,sans-serif" font-size="12" font-weight="600" fill="#ff9900" letter-spacing="1.4">SELLER</text>
+      </svg>`,
       links: [
         { label: 'Seller Central', url: 'https://sellercentral.amazon.ca/amazonsell/business', primary: true },
         { label: 'Mağaza Sayfası', url: 'https://www.amazon.ca/sp?ie=UTF8&seller=A2WWR7R4C8VC22' },
@@ -909,22 +909,28 @@ window.APP_CONFIG = {
       ]
     },
     {
-      brand: 'Trendyol',
-      store: 'Maventa Home',
-      market: 'Trendyol (TR)',
-      accent: '#f27a1a',
-      tag: 'Mağaza yönetimi',
+      brand: 'Trendyol Satıcı Paneli', store: 'Maventa Home', market: 'Trendyol (TR)',
+      accent: '#f27a1a', tag: 'Mağaza yönetimi', logoBg: '#f27a1a',
+      logo: `<svg viewBox="0 0 240 56" xmlns="http://www.w3.org/2000/svg" aria-label="Trendyol Satıcı Paneli">
+        <rect x="6" y="10" width="36" height="36" rx="11" fill="#ffffff"/>
+        <path d="M18 20 h12 M24 20 v17" stroke="#f27a1a" stroke-width="4.5" stroke-linecap="round"/>
+        <text x="52" y="31" font-family="Inter,sans-serif" font-size="24" font-weight="700" fill="#ffffff" letter-spacing="-.6">trendyol</text>
+        <text x="53" y="45" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="rgba(255,255,255,.85)" letter-spacing="1.3">SATICI PANELİ</text>
+      </svg>`,
       links: [
         { label: 'Satıcı Paneli', url: 'https://partner.trendyol.com/dashboard', primary: true },
         { label: 'Mağaza Sayfası', url: 'https://www.trendyol.com/magaza/maventa-home-m-1099909?channelId=1&sst=0' }
       ]
     },
     {
-      brand: 'Hepsiburada',
-      store: 'Maventa Home',
-      market: 'Hepsiburada (TR)',
-      accent: '#ff6000',
-      tag: 'Mağaza yönetimi',
+      brand: 'Hepsiburada Satıcı', store: 'Maventa Home', market: 'Hepsiburada (TR)',
+      accent: '#ff6000', tag: 'Mağaza yönetimi', logoBg: '#ff6000',
+      logo: `<svg viewBox="0 0 250 56" xmlns="http://www.w3.org/2000/svg" aria-label="Hepsiburada Satıcı">
+        <rect x="6" y="10" width="36" height="36" rx="11" fill="#ffffff"/>
+        <path d="M19 18 v20 M19 27 h11 M30 27 v11" stroke="#ff6000" stroke-width="4.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <text x="52" y="31" font-family="Inter,sans-serif" font-size="21" font-weight="700" fill="#ffffff" letter-spacing="-.6">hepsiburada</text>
+        <text x="53" y="45" font-family="Inter,sans-serif" font-size="11" font-weight="600" fill="rgba(255,255,255,.85)" letter-spacing="1.3">MERCHANT</text>
+      </svg>`,
       links: [
         { label: 'Merchant Paneli', url: 'https://merchant.hepsiburada.com/v2/dashboard', primary: true },
         { label: 'Mağaza Sayfası', url: 'https://www.hepsiburada.com/magaza/maventa-home' }
@@ -932,10 +938,10 @@ window.APP_CONFIG = {
     }
   ],
 
-  /* --- Firebase (ortak veritabanı) -----------------------------------
-     BOŞ BIRAKILIRSA site "yerel mod"da çalışır: veriler sadece kendi
-     tarayıcınızda saklanır. Firebase bilgilerini girdiğinizde ikinizin
-     verisi anında ortaklaşır. Kurulum adımları README.md dosyasında.
+  /* --- Firebase (ortak canlı veritabanı) -----------------------------
+     Doldurulmazsa site "yerel mod"da çalışır ve karşı tarafın oturumunu
+     göremezsiniz. Panel içindeki "Ortak veritabanı" butonundan da
+     girebilirsiniz (dosyayı düzenlemenize gerek kalmaz).
   ------------------------------------------------------------------- */
   firebase: {
     apiKey: '',
@@ -964,7 +970,18 @@ window.AVATARS = {
   'use strict';
 
   const CFG = window.APP_CONFIG || {};
-  const FB = CFG.firebase || {};
+
+  /* Firebase ayarı: önce dosyadaki config, yoksa tarayıcıya kaydedilen */
+  function okuFB() {
+    const f = CFG.firebase || {};
+    if (f.apiKey && f.projectId) return f;
+    try {
+      const l = JSON.parse(localStorage.getItem('cnar_fb_cfg') || 'null');
+      if (l && l.apiKey && l.projectId) return l;
+    } catch (e) {}
+    return {};
+  }
+  const FB = okuFB();
   const HAS_FB = !!(FB.apiKey && FB.projectId);
   const COLLECTIONS = ['sessions', 'tasks', 'stock', 'activity', 'meta'];
   const LS = 'cnar_panel_v1';
@@ -1114,7 +1131,7 @@ window.AVATARS = {
 
 /* ==== 4) UYGULAMA ==== */
 /* ============================================================
-   CNAR · Maventa — Ortak Panel  |  ana uygulama
+   CNAR · Maventa — Ortak Panel  |  ana uygulama (v2)
    ============================================================ */
 (function () {
   'use strict';
@@ -1126,37 +1143,29 @@ window.AVATARS = {
   const $     = s => document.querySelector(s);
   const $$    = s => Array.from(document.querySelectorAll(s));
 
-  const HEARTBEAT_MS = 20000;
-  const ONLINE_MS    = 75000;   // bu süreden yeni "lastSeen" = aktif
+  const HEARTBEAT_MS = 15000;
+  const ONLINE_MS    = 45000;
 
-  let me = null;
-  let sessionId = null;
-  let sessionStart = 0;
+  let me = null, sessionId = null, sessionStart = 0;
   let tickTimer = null, beatTimer = null;
 
   /* ================= yardımcılar ================= */
   const pad = n => String(n).padStart(2, '0');
-
   function hms(ms) {
     if (!ms || ms < 0) ms = 0;
     const s = Math.floor(ms / 1000);
     return pad(Math.floor(s / 3600)) + ':' + pad(Math.floor(s % 3600 / 60)) + ':' + pad(s % 60);
   }
   function human(ms) {
-    if (!ms || ms < 1000) return '0 dk';
-    const m = Math.floor(ms / 60000);
-    const h = Math.floor(m / 60);
-    if (h >= 1) return h + ' sa ' + (m % 60) + ' dk';
-    return m + ' dk';
+    if (!ms || ms < 60000) return Math.max(0, Math.round((ms || 0) / 1000)) + ' sn';
+    const m = Math.floor(ms / 60000), h = Math.floor(m / 60);
+    return h >= 1 ? h + ' sa ' + (m % 60) + ' dk' : m + ' dk';
   }
   const fmtTime = ts => new Date(ts).toLocaleTimeString('tr-TR', { hour: '2-digit', minute: '2-digit' });
   const fmtDate = ts => new Date(ts).toLocaleDateString('tr-TR', { day: '2-digit', month: 'short', year: 'numeric' });
   const dayKey  = ts => { const d = new Date(ts); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); };
   const monthKey = ts => { const d = new Date(ts); return d.getFullYear() + '-' + pad(d.getMonth() + 1); };
-  const monthLabel = k => {
-    const [y, m] = k.split('-');
-    return new Date(+y, +m - 1, 1).toLocaleDateString('tr-TR', { month: 'long', year: 'numeric' });
-  };
+  const monthLabel = k => { const [y, m] = k.split('-'); return new Date(+y, +m - 1, 1).toLocaleDateString('tr-TR', { month: 'long', year: 'numeric' }); };
   function ago(ts) {
     const d = Date.now() - ts;
     if (d < 60000) return 'az önce';
@@ -1170,20 +1179,97 @@ window.AVATARS = {
   const money = n => (Number(n) || 0).toLocaleString('tr-TR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
   function toast(msg) {
-    const t = $('#toast');
-    t.textContent = msg;
-    t.classList.add('show');
-    clearTimeout(t._t);
-    t._t = setTimeout(() => t.classList.remove('show'), 2400);
+    const t = $('#toast'); t.textContent = msg; t.classList.add('show');
+    clearTimeout(t._t); t._t = setTimeout(() => t.classList.remove('show'), 2600);
   }
   async function sha256(str) {
     const b = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
     return Array.from(new Uint8Array(b)).map(x => x.toString(16).padStart(2, '0')).join('');
   }
   const isAdmin = () => me && me.role === 'admin';
-  function guard() {
-    if (!isAdmin()) { toast('Bu panelde yalnızca görüntüleme yetkiniz var.'); return false; }
-    return true;
+  function guard() { if (!isAdmin()) { toast('Bu panelde yalnızca görüntüleme yetkiniz var.'); return false; } return true; }
+
+  /* ============================================================
+     TEMA — İstanbul saatine göre otomatik, manuel geçiş de var
+     ============================================================ */
+  const istSaat = () => {
+    const s = new Intl.DateTimeFormat('tr-TR', { timeZone: 'Europe/Istanbul', hour: '2-digit', hour12: false }).format(new Date());
+    return parseInt(s, 10);
+  };
+  const otoTema = () => {
+    const h = istSaat();
+    return (h >= (CFG.gunDogumu || 7) && h < (CFG.gunBatimi || 19)) ? 'light' : 'dark';
+  };
+  function uygulaTema(t) {
+    document.documentElement.setAttribute('data-theme', t);
+    $('#themeBtn').textContent = t === 'light' ? '☀️' : '🌙';
+    $('#themeBtn').title = (t === 'light' ? 'Aydınlık' : 'Karanlık') + ' mod — değiştirmek için tıklayın';
+    document.dispatchEvent(new CustomEvent('temaDegisti', { detail: t }));
+  }
+  function temaBaslat() {
+    const el = localStorage.getItem('cnar_tema');   // 'light' | 'dark' | null(oto)
+    uygulaTema(el || otoTema());
+    $('#themeBtn').addEventListener('click', () => {
+      const su = document.documentElement.getAttribute('data-theme');
+      const yeni = su === 'light' ? 'dark' : 'light';
+      if (yeni === otoTema()) localStorage.removeItem('cnar_tema');
+      else localStorage.setItem('cnar_tema', yeni);
+      uygulaTema(yeni);
+      toast(yeni === 'light' ? 'Aydınlık mod' : 'Karanlık mod');
+    });
+    // saat başı otomatik kontrol (manuel seçim yoksa)
+    setInterval(() => {
+      if (!localStorage.getItem('cnar_tema')) {
+        const t = otoTema();
+        if (t !== document.documentElement.getAttribute('data-theme')) uygulaTema(t);
+      }
+    }, 60000);
+  }
+
+  /* ============================================================
+     SAAT + HAVA DURUMU
+     ============================================================ */
+  function saatBaslat() {
+    const gun = () => {
+      const d = new Date();
+      $('#lbDate').textContent = d.toLocaleDateString('tr-TR', {
+        timeZone: 'Europe/Istanbul', weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+      });
+      $('#lbClock').textContent = d.toLocaleTimeString('tr-TR', {
+        timeZone: 'Europe/Istanbul', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false
+      });
+    };
+    gun(); setInterval(gun, 1000);
+  }
+
+  const HAVA_KOD = {
+    0: ['☀️', 'Açık'], 1: ['🌤', 'Az bulutlu'], 2: ['⛅', 'Parçalı bulutlu'], 3: ['☁️', 'Kapalı'],
+    45: ['🌫', 'Sisli'], 48: ['🌫', 'Kırağılı sis'],
+    51: ['🌦', 'Hafif çisenti'], 53: ['🌦', 'Çisenti'], 55: ['🌦', 'Yoğun çisenti'],
+    61: ['🌧', 'Hafif yağmur'], 63: ['🌧', 'Yağmurlu'], 65: ['🌧', 'Şiddetli yağmur'],
+    66: ['🌧', 'Donan yağmur'], 67: ['🌧', 'Donan yağmur'],
+    71: ['🌨', 'Hafif kar'], 73: ['🌨', 'Kar'], 75: ['🌨', 'Yoğun kar'], 77: ['🌨', 'Kar taneleri'],
+    80: ['🌦', 'Sağanak'], 81: ['🌦', 'Sağanak'], 82: ['⛈', 'Kuvvetli sağanak'],
+    85: ['🌨', 'Kar sağanağı'], 86: ['🌨', 'Kar sağanağı'],
+    95: ['⛈', 'Gök gürültülü'], 96: ['⛈', 'Dolulu fırtına'], 99: ['⛈', 'Dolulu fırtına']
+  };
+
+  async function havaGetir() {
+    const h = CFG.hava || { lat: 41.0082, lon: 28.9784, sehir: 'İstanbul' };
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${h.lat}&longitude=${h.lon}` +
+                `&current=temperature_2m,weather_code,relative_humidity_2m,wind_speed_10m&timezone=Europe%2FIstanbul`;
+    try {
+      const r = await fetch(url);
+      if (!r.ok) throw new Error(r.status);
+      const j = await r.json();
+      const c = j.current;
+      const [ikon, ad] = HAVA_KOD[c.weather_code] || ['🌡', '—'];
+      $('#lbWeather').innerHTML =
+        `<span class="ico">${ikon}</span><span>${esc(h.sehir)} <b>${Math.round(c.temperature_2m)}°C</b> · ${esc(ad)}</span>`;
+      $('#lbWeather').title = `Nem %${c.relative_humidity_2m} · Rüzgâr ${Math.round(c.wind_speed_10m)} km/s`;
+    } catch (e) {
+      $('#lbWeather').innerHTML = `<span class="ico">🌡</span><span>${esc(h.sehir)} <b>—</b> <i style="font-style:normal;color:var(--txt-3)">hava durumu alınamadı</i></span>`;
+    }
   }
 
   /* ============================================================
@@ -1195,12 +1281,8 @@ window.AVATARS = {
     $('#whoGrid').innerHTML = USERS.map(u => `
       <div class="wc" data-u="${u.id}">
         <img src="${AV[u.id] || ''}" alt="${esc(u.name)}">
-        <div>
-          <strong>${esc(u.name)}</strong>
-          <span>${esc(u.title)}</span>
-        </div>
+        <div><strong>${esc(u.name)}</strong><span>${esc(u.title)}</span></div>
       </div>`).join('');
-
     $$('#whoGrid .wc').forEach(el => el.addEventListener('click', () => {
       pick = byId(el.dataset.u);
       $('#pinAvatar').src = AV[pick.id] || '';
@@ -1210,40 +1292,31 @@ window.AVATARS = {
       pin = ''; drawDots(); $('#pinErr').textContent = '';
     }));
   }
-
-  function drawDots() {
-    $$('#pinDots span').forEach((s, i) => s.classList.toggle('on', i < pin.length));
-  }
+  const drawDots = () => $$('#pinDots span').forEach((s, i) => s.classList.toggle('on', i < pin.length));
 
   async function tryPin() {
-    const h = await sha256(pin);
-    if (h === CFG.pinHash) {
-      unlock(pick);
-    } else {
+    if (await sha256(pin) === CFG.pinHash) unlock(pick);
+    else {
       $('#pinDots').classList.add('shake');
       $('#pinErr').textContent = 'Şifre hatalı, tekrar deneyin.';
       setTimeout(() => { $('#pinDots').classList.remove('shake'); pin = ''; drawDots(); }, 420);
     }
   }
-
   function initLock() {
     buildWhoGrid();
     $('#backBtn').addEventListener('click', () => {
-      $('#stepPin').classList.remove('active');
-      $('#stepWho').classList.add('active');
+      $('#stepPin').classList.remove('active'); $('#stepWho').classList.add('active');
       pin = ''; drawDots();
     });
     $('#keypad').addEventListener('click', e => {
       const b = e.target.closest('button[data-k]'); if (!b) return;
-      const k = b.dataset.k;
-      if (k === 'del') { pin = pin.slice(0, -1); }
-      else if (pin.length < 4) { pin += k; }
+      if (b.dataset.k === 'del') pin = pin.slice(0, -1);
+      else if (pin.length < 4) pin += b.dataset.k;
       drawDots();
       if (pin.length === 4) setTimeout(tryPin, 160);
     });
     document.addEventListener('keydown', e => {
-      if (!document.body.classList.contains('locked')) return;
-      if (!$('#stepPin').classList.contains('active')) return;
+      if (!document.body.classList.contains('locked') || !$('#stepPin').classList.contains('active')) return;
       if (/^[0-9]$/.test(e.key) && pin.length < 4) { pin += e.key; drawDots(); if (pin.length === 4) setTimeout(tryPin, 160); }
       else if (e.key === 'Backspace') { pin = pin.slice(0, -1); drawDots(); }
     });
@@ -1257,22 +1330,18 @@ window.AVATARS = {
     document.body.classList.remove('locked');
     document.body.dataset.role = user.role;
     $('#app').setAttribute('aria-hidden', 'false');
-
     $('#whoAvatar').src = AV[user.id] || '';
     $('#whoName').textContent = user.name;
     $('#whoRole').textContent = user.role === 'admin' ? 'Yönetici' : 'Görüntüleyici';
     $('#greeting').textContent = selamla() + ', ' + user.name.split(' ')[0];
 
     sessionStart = Date.now();
-    startTimer();
+    tickTimer = setInterval(tickLive, 1000);
+    tickLive();
 
     try {
       sessionId = await Store.add('sessions', {
-        user: user.id,
-        start: sessionStart,
-        end: null,
-        lastSeen: sessionStart,
-        day: dayKey(sessionStart)
+        user: user.id, start: sessionStart, end: null, lastSeen: sessionStart, day: dayKey(sessionStart)
       });
       await log(user.id, 'panele giriş yaptı');
     } catch (e) { console.warn('Oturum kaydı yazılamadı', e); }
@@ -1280,44 +1349,33 @@ window.AVATARS = {
     beatTimer = setInterval(beat, HEARTBEAT_MS);
     window.addEventListener('beforeunload', endSession);
     window.addEventListener('pagehide', endSession);
+    document.addEventListener('visibilitychange', () => { if (!document.hidden) beat(); });
   }
 
   function selamla() {
-    const h = new Date().getHours();
+    const h = istSaat();
     if (h < 6) return 'İyi geceler';
     if (h < 12) return 'Günaydın';
     if (h < 18) return 'İyi günler';
     return 'İyi akşamlar';
   }
-
-  function startTimer() {
-    const el = $('#sessionTimer');
-    const t = () => { el.textContent = hms(Date.now() - sessionStart); };
-    t();
-    tickTimer = setInterval(() => { t(); renderPresence(Store.get('sessions')); }, 1000);
-  }
-
-  function beat() {
-    if (!sessionId) return;
-    Store.update('sessions', sessionId, { lastSeen: Date.now() }).catch(() => {});
-  }
-
+  function beat() { if (sessionId) Store.update('sessions', sessionId, { lastSeen: Date.now() }).catch(() => {}); }
   function endSession() {
     if (!sessionId) return;
-    const id = sessionId; sessionId = null;
-    const now = Date.now();
+    const id = sessionId; sessionId = null; const now = Date.now();
     Store.update('sessions', id, { end: now, lastSeen: now, duration: now - sessionStart }).catch(() => {});
   }
-
-  function log(userId, text) {
-    return Store.add('activity', { user: userId, text, at: Date.now() }).catch(() => {});
-  }
+  const log = (userId, text) => Store.add('activity', { user: userId, text, at: Date.now() }).catch(() => {});
 
   $('#logoutBtn').addEventListener('click', () => {
-    endSession();
-    clearInterval(tickTimer); clearInterval(beatTimer);
-    location.reload();
+    endSession(); clearInterval(tickTimer); clearInterval(beatTimer); location.reload();
   });
+
+  /* --- canlı sayaçlar: sadece metni güncelle (yeniden çizme yok) --- */
+  function tickLive() {
+    if (sessionStart) $('#sessionTimer').textContent = hms(Date.now() - sessionStart);
+    $$('[data-ls]').forEach(el => { el.textContent = hms(Date.now() - +el.dataset.ls); });
+  }
 
   /* ============================================================
      SEKMELER
@@ -1326,12 +1384,8 @@ window.AVATARS = {
     $$('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === name));
     $$('.panel').forEach(p => p.classList.toggle('active', p.dataset.panel === name));
   }
-  $('#tabs').addEventListener('click', e => {
-    const t = e.target.closest('.tab'); if (t) goTab(t.dataset.tab);
-  });
-  document.addEventListener('click', e => {
-    const g = e.target.closest('[data-goto]'); if (g) goTab(g.dataset.goto);
-  });
+  $('#tabs').addEventListener('click', e => { const t = e.target.closest('.tab'); if (t) goTab(t.dataset.tab); });
+  document.addEventListener('click', e => { const g = e.target.closest('[data-goto]'); if (g) goTab(g.dataset.goto); });
 
   /* ============================================================
      MAĞAZALAR
@@ -1339,15 +1393,16 @@ window.AVATARS = {
   function renderStores() {
     $('#storeGrid').innerHTML = CFG.stores.map(s => `
       <div class="store" style="--acc:${s.accent}">
-        <div class="sb">${esc(s.brand)}</div>
-        <h3>${esc(s.store)}</h3>
-        <div class="sm">${esc(s.market)}</div>
-        <span class="stag">${esc(s.tag)}</span>
-        <div class="sl">
-          ${s.links.map(l => `
-            <a class="slink ${l.primary ? 'primary' : ''}" href="${esc(l.url)}" target="_blank" rel="noopener">
-              <span>${esc(l.label)}</span><span class="ar">↗</span>
-            </a>`).join('')}
+        <div class="store-logo" style="background:${s.logoBg || s.accent}">${s.logo || ''}</div>
+        <div class="store-body">
+          <div class="sb">${esc(s.brand)}</div>
+          <h3>${esc(s.store)}</h3>
+          <div class="sm">${esc(s.market)}</div>
+          <span class="stag">${esc(s.tag)}</span>
+          <div class="sl">
+            ${s.links.map(l => `<a class="slink ${l.primary ? 'primary' : ''}" href="${esc(l.url)}" target="_blank" rel="noopener">
+              <span>${esc(l.label)}</span><span class="ar">↗</span></a>`).join('')}
+          </div>
         </div>
       </div>`).join('');
   }
@@ -1360,12 +1415,10 @@ window.AVATARS = {
   $('#saveNotes').addEventListener('click', async () => {
     if (!guard()) return;
     await Store.set('meta', 'storeNotes', { text: $('#storeNotes').value, by: me.id, at: Date.now() });
-    notesDirty = false;
-    toast('Notlar kaydedildi');
+    notesDirty = false; toast('Notlar kaydedildi');
   });
   function renderNotes(metas) {
-    const n = metas.find(m => m.id === 'storeNotes');
-    if (!n) return;
+    const n = metas.find(m => m.id === 'storeNotes'); if (!n) return;
     if (!notesDirty && $('#storeNotes').value !== (n.text || '')) $('#storeNotes').value = n.text || '';
     if (!notesDirty) {
       const u = byId(n.by);
@@ -1383,23 +1436,16 @@ window.AVATARS = {
   function stockMonths(rows) {
     const set = new Set(rows.map(r => r.month).filter(Boolean));
     set.add(monthKey(Date.now()));
-    const d = new Date(); d.setMonth(d.getMonth() + 1);
-    set.add(monthKey(d.getTime()));
+    const d = new Date(); d.setMonth(d.getMonth() + 1); set.add(monthKey(d.getTime()));
     return Array.from(set).sort().reverse();
   }
-
   function renderStock(rows) {
     const months = stockMonths(rows);
     if (!months.includes(stockMonth)) stockMonth = months[0];
-    const sel = $('#stockMonth');
-    sel.innerHTML = months.map(m => `<option value="${m}" ${m === stockMonth ? 'selected' : ''}>${monthLabel(m)}</option>`).join('');
-
-    const list = rows.filter(r => r.month === stockMonth)
-                     .sort((a, b) => (a.product || '').localeCompare(b.product || '', 'tr'));
-    const tb = $('#stockTable').querySelector('tbody');
+    $('#stockMonth').innerHTML = months.map(m => `<option value="${m}" ${m === stockMonth ? 'selected' : ''}>${monthLabel(m)}</option>`).join('');
+    const list = rows.filter(r => r.month === stockMonth).sort((a, b) => (a.product || '').localeCompare(b.product || '', 'tr'));
     $('#stockEmpty').style.display = list.length ? 'none' : 'block';
-
-    tb.innerHTML = list.map(r => {
+    $('#stockTable').querySelector('tbody').innerHTML = list.map(r => {
       const total = (Number(r.qty) || 0) * (Number(r.cost) || 0);
       return `<tr>
         <td><strong>${esc(r.product)}</strong></td>
@@ -1411,11 +1457,8 @@ window.AVATARS = {
         <td class="muted">${esc(r.note || '')}</td>
         <td class="admin-only" style="text-align:right;white-space:nowrap">
           <button class="btn ghost sm" data-edit-stock="${r.id}">Düzenle</button>
-          <button class="btn danger sm" data-del-stock="${r.id}">Sil</button>
-        </td>
-      </tr>`;
+          <button class="btn danger sm" data-del-stock="${r.id}">Sil</button></td></tr>`;
     }).join('');
-
     const qty = list.reduce((s, r) => s + (Number(r.qty) || 0), 0);
     const cost = list.reduce((s, r) => s + (Number(r.qty) || 0) * (Number(r.cost) || 0), 0);
     $('#stockTotals').innerHTML = `
@@ -1423,7 +1466,6 @@ window.AVATARS = {
       <div><span class="tk">Toplam adet</span><span class="tv">${qty}</span></div>
       <div><span class="tk">Toplam maliyet</span><span class="tv" style="color:var(--gold)">${money(cost)} CAD</span></div>`;
   }
-
   $('#stockMonth').addEventListener('change', e => { stockMonth = e.target.value; renderStock(Store.get('stock')); });
   $('#addStock').addEventListener('click', () => { if (guard()) stockModal(null); });
 
@@ -1436,17 +1478,15 @@ window.AVATARS = {
       const row = Store.get('stock').find(r => r.id === dl.dataset.delStock);
       if (confirm(`"${row ? row.product : ''}" kaydı silinsin mi?`)) {
         await Store.remove('stock', dl.dataset.delStock);
-        log(me.id, `stok kaydını sildi: ${row ? row.product : ''}`);
-        toast('Silindi');
+        log(me.id, `stok kaydını sildi: ${row ? row.product : ''}`); toast('Silindi');
       }
     }
   });
 
   function stockModal(row) {
     const r = row || { month: stockMonth, status: 'planned' };
-    openModal(`
-      <h2>${row ? 'Ürünü düzenle' : 'Stok alımı ekle'}</h2>
-      <div class="mf"><label>Ürün adı</label><input id="f_product" type="text" value="${esc(r.product || '')}" placeholder="Örn. Seramik vazo seti"></div>
+    openModal(`<h2>${row ? 'Ürünü düzenle' : 'Stok alımı ekle'}</h2>
+      <div class="mf"><label>Ürün adı</label><input id="f_product" type="text" value="${esc(r.product || '')}"></div>
       <div class="mrow">
         <div class="mf"><label>SKU / ASIN</label><input id="f_sku" type="text" value="${esc(r.sku || '')}"></div>
         <div class="mf"><label>Dönem</label><input id="f_month" type="text" value="${esc(r.month || stockMonth)}" placeholder="2026-08"></div>
@@ -1459,21 +1499,13 @@ window.AVATARS = {
         ${Object.entries(STOCK_STATUS).map(([k, v]) => `<option value="${k}" ${r.status === k ? 'selected' : ''}>${v}</option>`).join('')}
       </select></div>
       <div class="mf"><label>Not</label><textarea id="f_note">${esc(r.note || '')}</textarea></div>
-      <div class="macts">
-        <button class="btn ghost" data-close>Vazgeç</button>
-        <button class="btn" id="f_save">Kaydet</button>
-      </div>`);
-
+      <div class="macts"><button class="btn ghost" data-close>Vazgeç</button><button class="btn" id="f_save">Kaydet</button></div>`);
     $('#f_save').addEventListener('click', async () => {
       const data = {
-        product: $('#f_product').value.trim(),
-        sku: $('#f_sku').value.trim(),
+        product: $('#f_product').value.trim(), sku: $('#f_sku').value.trim(),
         month: $('#f_month').value.trim() || stockMonth,
-        qty: Number($('#f_qty').value) || 0,
-        cost: Number($('#f_cost').value) || 0,
-        status: $('#f_status').value,
-        note: $('#f_note').value.trim(),
-        by: me.id, at: Date.now()
+        qty: Number($('#f_qty').value) || 0, cost: Number($('#f_cost').value) || 0,
+        status: $('#f_status').value, note: $('#f_note').value.trim(), by: me.id, at: Date.now()
       };
       if (!data.product) { toast('Ürün adı gerekli'); return; }
       if (row) { await Store.update('stock', row.id, data); log(me.id, `stok kaydını güncelledi: ${data.product}`); }
@@ -1498,42 +1530,30 @@ window.AVATARS = {
 
   function renderTasks(rows) {
     const list = rows.filter(t => taskFilter === 'all' || t.status === taskFilter)
-      .sort((a, b) => {
-        const o = { doing: 0, todo: 1, done: 2 };
-        return (o[a.status] ?? 1) - (o[b.status] ?? 1) || (b.at || 0) - (a.at || 0);
-      });
-
+      .sort((a, b) => { const o = { doing: 0, todo: 1, done: 2 };
+        return (o[a.status] ?? 1) - (o[b.status] ?? 1) || (b.at || 0) - (a.at || 0); });
     $('#taskEmpty').style.display = list.length ? 'none' : 'block';
     $('#taskBoard').innerHTML = list.map(t => {
       const o = byId(t.owner);
       return `<div class="task">
-        <div class="th">
-          <h3>${esc(t.title)}</h3>
-          <span class="pill ${t.status || 'todo'}">${T_STATUS[t.status] || 'Bekliyor'}</span>
-        </div>
+        <div class="th"><h3>${esc(t.title)}</h3><span class="pill ${t.status || 'todo'}">${T_STATUS[t.status] || 'Bekliyor'}</span></div>
         ${t.note ? `<div class="tn">${esc(t.note)}</div>` : ''}
         <div class="tf">
           ${o ? `<img src="${AV[o.id] || ''}" alt=""><span>${esc(o.name.split(' ')[0])}</span>` : '<span>Atanmadı</span>'}
           ${t.due ? `<span>· ${esc(t.due)}</span>` : ''}
-          <span style="margin-left:auto">${t.at ? ago(t.at) : ''}</span>
-        </div>
+          <span style="margin-left:auto">${t.at ? ago(t.at) : ''}</span></div>
         <div class="ta admin-only">
           <button data-task-next="${t.id}">Durum ilerlet</button>
           <button data-task-edit="${t.id}">Düzenle</button>
-          <button data-task-del="${t.id}">Sil</button>
-        </div>
+          <button data-task-del="${t.id}">Sil</button></div>
       </div>`;
     }).join('');
 
-    // özet kartı
-    const open = rows.filter(t => t.status !== 'done')
-      .sort((a, b) => (a.status === 'doing' ? -1 : 1)).slice(0, 6);
+    const open = rows.filter(t => t.status !== 'done').sort((a, b) => (a.status === 'doing' ? -1 : 1)).slice(0, 6);
     $('#openTasksMini').innerHTML = open.length ? open.map(t => {
-      const o = byId(t.owner);
-      const c = t.status === 'doing' ? 'var(--blue)' : 'var(--txt-3)';
+      const o = byId(t.owner), c = t.status === 'doing' ? 'var(--blue)' : 'var(--txt-3)';
       return `<div class="mini"><span class="st" style="background:${c}"></span>
-        <span class="t">${esc(t.title)}</span>
-        <span class="o">${o ? esc(o.name.split(' ')[0]) : '—'}</span></div>`;
+        <span class="t">${esc(t.title)}</span><span class="o">${o ? esc(o.name.split(' ')[0]) : '—'}</span></div>`;
     }).join('') : '<div class="empty" style="padding:18px">Açık görev yok 🎉</div>';
   }
 
@@ -1554,18 +1574,14 @@ window.AVATARS = {
     if (dl) {
       if (!guard()) return;
       const t = Store.get('tasks').find(x => x.id === dl.dataset.taskDel);
-      if (confirm(`"${t ? t.title : ''}" görevi silinsin mi?`)) {
-        await Store.remove('tasks', dl.dataset.taskDel);
-        toast('Görev silindi');
-      }
+      if (confirm(`"${t ? t.title : ''}" görevi silinsin mi?`)) { await Store.remove('tasks', dl.dataset.taskDel); toast('Görev silindi'); }
     }
   });
 
   function taskModal(task) {
     const t = task || { status: 'todo', owner: me.id };
-    openModal(`
-      <h2>${task ? 'Görevi düzenle' : 'Yeni görev'}</h2>
-      <div class="mf"><label>Başlık</label><input id="t_title" type="text" value="${esc(t.title || '')}" placeholder="Örn. Ağustos Amazon siparişini ver"></div>
+    openModal(`<h2>${task ? 'Görevi düzenle' : 'Yeni görev'}</h2>
+      <div class="mf"><label>Başlık</label><input id="t_title" type="text" value="${esc(t.title || '')}"></div>
       <div class="mrow">
         <div class="mf"><label>Sorumlu</label><select id="t_owner">
           ${USERS.map(u => `<option value="${u.id}" ${t.owner === u.id ? 'selected' : ''}>${esc(u.name)}</option>`).join('')}
@@ -1576,20 +1592,10 @@ window.AVATARS = {
       </div>
       <div class="mf"><label>Son tarih (opsiyonel)</label><input id="t_due" type="date" value="${esc(t.due || '')}"></div>
       <div class="mf"><label>Açıklama</label><textarea id="t_note">${esc(t.note || '')}</textarea></div>
-      <div class="macts">
-        <button class="btn ghost" data-close>Vazgeç</button>
-        <button class="btn" id="t_save">Kaydet</button>
-      </div>`);
-
+      <div class="macts"><button class="btn ghost" data-close>Vazgeç</button><button class="btn" id="t_save">Kaydet</button></div>`);
     $('#t_save').addEventListener('click', async () => {
-      const data = {
-        title: $('#t_title').value.trim(),
-        owner: $('#t_owner').value,
-        status: $('#t_status').value,
-        due: $('#t_due').value,
-        note: $('#t_note').value.trim(),
-        at: Date.now(), by: me.id
-      };
+      const data = { title: $('#t_title').value.trim(), owner: $('#t_owner').value, status: $('#t_status').value,
+        due: $('#t_due').value, note: $('#t_note').value.trim(), at: Date.now(), by: me.id };
       if (!data.title) { toast('Başlık gerekli'); return; }
       if (task) { await Store.update('tasks', task.id, data); log(me.id, `"${data.title}" görevini güncelledi`); }
       else { await Store.add('tasks', data); log(me.id, `yeni görev ekledi: ${data.title}`); }
@@ -1600,29 +1606,39 @@ window.AVATARS = {
   /* ============================================================
      OTURUM / AKTİVİTE
      ============================================================ */
+  const isOnline = s => !s.end && (Date.now() - (s.lastSeen || 0) < ONLINE_MS);
   function sessionEnd(s) {
     if (s.end) return s.end;
     if (Date.now() - (s.lastSeen || s.start) > ONLINE_MS) return s.lastSeen || s.start;
     return Date.now();
   }
-  const isOnline = s => !s.end && (Date.now() - (s.lastSeen || 0) < ONLINE_MS);
   const dur = s => Math.max(0, sessionEnd(s) - s.start);
+  const canliOturum = (sessions, uid) => sessions.filter(s => s.user === uid).find(isOnline);
+
+  function renderLivebar(sessions) {
+    $('#lbLive').innerHTML = USERS.map(u => {
+      const live = canliOturum(sessions, u.id);
+      return `<div class="mini-av ${live ? 'on' : ''}" title="${esc(u.name)}">
+        <img src="${AV[u.id] || ''}" alt="">
+        ${live ? `<span class="t" data-ls="${live.start}">00:00:00</span>` : '<span>çevrimdışı</span>'}
+      </div>`;
+    }).join('');
+  }
 
   function renderPresence(sessions) {
     $('#presenceList').innerHTML = USERS.map(u => {
       const mine = sessions.filter(s => s.user === u.id);
       const live = mine.find(isOnline);
       const last = mine.slice().sort((a, b) => (b.start || 0) - (a.start || 0))[0];
-      return `<div class="pres ${live ? 'online' : ''}">
+      return `<div class="pres ${live ? 'online' : ''} ${me && me.id === u.id ? 'me' : ''}">
         <img src="${AV[u.id] || ''}" alt="">
-        <div class="pi">
-          <strong>${esc(u.name)}</strong>
-          <span>${live ? 'Şu anda panelde' : (last ? 'Son giriş: ' + ago(last.start) : 'Henüz giriş yapmadı')}</span>
-        </div>
-        ${live ? `<span class="live">${hms(Date.now() - live.start)}</span>` : ''}
+        <div class="pi"><strong>${esc(u.name)}${me && me.id === u.id ? ' <span style="color:var(--txt-3);font-weight:400">(siz)</span>' : ''}</strong>
+          <span>${live ? 'Şu anda panelde · giriş ' + fmtTime(live.start) : (last ? 'Son giriş: ' + ago(last.start) : 'Henüz giriş yapmadı')}</span></div>
+        ${live ? `<span class="live" data-ls="${live.start}">00:00:00</span>` : ''}
         <span class="dot"></span>
       </div>`;
     }).join('');
+    tickLive();
   }
 
   function renderStats(sessions, tasks, stock) {
@@ -1631,12 +1647,13 @@ window.AVATARS = {
     const openT = tasks.filter(t => t.status !== 'done').length;
     const thisMonth = stock.filter(r => r.month === monthKey(Date.now()));
     const monthCost = thisMonth.reduce((a, r) => a + (Number(r.qty) || 0) * (Number(r.cost) || 0), 0);
+    const online = USERS.filter(u => canliOturum(sessions, u.id)).length;
 
     $('#statRow').innerHTML = `
-      <div class="stat green"><div class="k">Bugün toplam süre</div><div class="v">${human(todayMs)}</div><div class="d">ikinizin toplamı</div></div>
+      <div class="stat green"><div class="k">Şu an panelde</div><div class="v">${online} / ${USERS.length}</div><div class="d">canlı</div></div>
+      <div class="stat"><div class="k">Bugün toplam süre</div><div class="v">${human(todayMs)}</div><div class="d">ikinizin toplamı</div></div>
       <div class="stat gold"><div class="k">Açık görev</div><div class="v">${openT}</div><div class="d">${tasks.length} görevden</div></div>
-      <div class="stat blue"><div class="k">Bu ay stok kalemi</div><div class="v">${thisMonth.length}</div><div class="d">${money(monthCost)} CAD</div></div>
-      <div class="stat"><div class="k">Toplam oturum</div><div class="v">${sessions.length}</div><div class="d">tüm zamanlar</div></div>`;
+      <div class="stat blue"><div class="k">Bu ay stok kalemi</div><div class="v">${thisMonth.length}</div><div class="d">${money(monthCost)} CAD</div></div>`;
 
     const d = new Date();
     $('#todayBig').textContent = d.toLocaleDateString('tr-TR', { day: 'numeric', month: 'long' });
@@ -1647,14 +1664,16 @@ window.AVATARS = {
     const today = dayKey(Date.now());
     $('#userStats').innerHTML = USERS.map(u => {
       const mine = sessions.filter(s => s.user === u.id);
+      const live = mine.find(isOnline);
       const total = mine.reduce((a, s) => a + dur(s), 0);
       const tod = mine.filter(s => dayKey(s.start) === today).reduce((a, s) => a + dur(s), 0);
       const last = mine.slice().sort((a, b) => b.start - a.start)[0];
       const avg = mine.length ? total / mine.length : 0;
-      return `<div class="ustat">
+      return `<div class="ustat ${live ? 'online' : ''}">
         <div class="uh">
           <img src="${AV[u.id] || ''}" alt="">
           <div class="un"><strong>${esc(u.name)}</strong><span>${esc(u.title)} · ${u.role === 'admin' ? 'Yönetici' : 'Görüntüleyici'}</span></div>
+          ${live ? `<div class="now"><div class="nl">şu anki oturum</div><div class="nv" data-ls="${live.start}">00:00:00</div></div>` : ''}
         </div>
         <div class="ugrid">
           <div class="ug"><div class="k">Toplam süre</div><div class="v" style="color:${u.color}">${human(total)}</div></div>
@@ -1665,6 +1684,7 @@ window.AVATARS = {
         <div class="muted" style="margin-top:12px">Son giriş: ${last ? fmtDate(last.start) + ' · ' + fmtTime(last.start) : '—'}</div>
       </div>`;
     }).join('');
+    tickLive();
   }
 
   let logFilter = 'all';
@@ -1672,47 +1692,89 @@ window.AVATARS = {
 
   function renderSessionTable(sessions) {
     const sel = $('#logUserFilter');
-    if (sel.options.length <= 1) {
-      USERS.forEach(u => sel.add(new Option(u.name, u.id)));
-    }
-    const list = sessions
-      .filter(s => logFilter === 'all' || s.user === logFilter)
-      .sort((a, b) => (b.start || 0) - (a.start || 0))
-      .slice(0, 200);
-
+    if (sel.options.length <= 1) USERS.forEach(u => sel.add(new Option(u.name, u.id)));
+    const list = sessions.filter(s => logFilter === 'all' || s.user === logFilter)
+      .sort((a, b) => (b.start || 0) - (a.start || 0)).slice(0, 200);
     $('#sessionEmpty').style.display = list.length ? 'none' : 'block';
     $('#sessionTable').querySelector('tbody').innerHTML = list.map(s => {
-      const u = byId(s.user) || { name: s.user };
-      const live = isOnline(s);
+      const u = byId(s.user) || { name: s.user }, live = isOnline(s);
       return `<tr>
         <td><div class="who-cell"><img src="${AV[s.user] || ''}" alt=""><span>${esc(u.name)}</span></div></td>
-        <td>${fmtDate(s.start)}</td>
-        <td>${fmtTime(s.start)}</td>
+        <td>${fmtDate(s.start)}</td><td>${fmtTime(s.start)}</td>
         <td>${live ? '<span class="pill doing">Devam ediyor</span>' : fmtTime(sessionEnd(s))}</td>
-        <td class="num">${hms(dur(s))}</td>
-      </tr>`;
+        <td class="num">${live ? `<span data-ls="${s.start}">00:00:00</span>` : hms(dur(s))}</td></tr>`;
     }).join('');
+    tickLive();
   }
 
   function renderFeed(acts) {
     const list = acts.slice().sort((a, b) => (b.at || 0) - (a.at || 0)).slice(0, 40);
     $('#activityFeed').innerHTML = list.length ? list.map(a => {
       const u = byId(a.user) || { name: a.user };
-      return `<div class="fe">
-        <img src="${AV[a.user] || ''}" alt="">
+      return `<div class="fe"><img src="${AV[a.user] || ''}" alt="">
         <div class="fc"><b>${esc(u.name.split(' ')[0])}</b> ${esc(a.text)}</div>
-        <div class="ft">${ago(a.at)}</div>
-      </div>`;
+        <div class="ft">${ago(a.at)}</div></div>`;
     }).join('') : '<div class="empty">Henüz hareket yok.</div>';
   }
 
   /* ============================================================
+     FIREBASE KURULUM EKRANI
+     ============================================================ */
+  function fbModal() {
+    const mevcut = (() => { try { return localStorage.getItem('cnar_fb_cfg') || ''; } catch (e) { return ''; } })();
+    openModal(`<h2>Ortak veritabanı (canlı takip)</h2>
+      <p class="msub">Bunu bağlayınca ikiniz de birbirinizin giriş anını, süresini, görevleri ve
+      stok kayıtlarını <b>anlık</b> görürsünüz. Tek seferlik ~5 dakikalık kurulum.</p>
+      <ol class="steps">
+        <li><a href="https://console.firebase.google.com" target="_blank" rel="noopener">console.firebase.google.com</a> → <b>Add project</b> → isim: <code>cnar-panel</code></li>
+        <li><b>Build → Firestore Database → Create database</b> → konum <code>eur3</code> → <b>Start in test mode</b></li>
+        <li><b>Rules</b> sekmesi → <code>allow read, write: if true;</code> → <b>Publish</b></li>
+        <li><b>⚙ Project settings → Your apps → &lt;/&gt;</b> (Web) → uygulama adı <code>panel</code> → Register</li>
+        <li>Çıkan <code>firebaseConfig = { ... }</code> bloğunu aşağıya yapıştırın</li>
+      </ol>
+      <div class="mf"><label>firebaseConfig</label>
+        <textarea id="fb_in" class="code" placeholder='{ "apiKey": "AIza...", "authDomain": "...", "projectId": "...", "storageBucket": "...", "messagingSenderId": "...", "appId": "..." }'>${esc(mevcut)}</textarea></div>
+      <p class="msub" style="margin:0">Not: bu ayar sadece bu tarayıcıya kaydedilir — <b>Mustafa'nın da kendi tarayıcısında bir kez yapıştırması gerekir.</b>
+      Kalıcı olsun isterseniz aynı bilgiyi <code>index.html</code> içindeki AYARLAR bölümüne koyun, o zaman kimse bir şey yapmaz.</p>
+      <div class="macts">
+        ${mevcut ? '<button class="btn danger" id="fb_clear">Bağlantıyı kaldır</button>' : ''}
+        <button class="btn ghost" data-close>Kapat</button>
+        <button class="btn" id="fb_save">Kaydet ve bağlan</button>
+      </div>`);
+
+    $('#fb_save').addEventListener('click', () => {
+      let raw = $('#fb_in').value.trim();
+      if (!raw) { toast('Yapıştırılan bir şey yok'); return; }
+      // "const firebaseConfig = {...};" biçimini de kabul et
+      const i = raw.indexOf('{'), j = raw.lastIndexOf('}');
+      if (i < 0 || j < 0) { toast('Geçerli bir config bulunamadı'); return; }
+      raw = raw.slice(i, j + 1);
+      let cfg;
+      try { cfg = JSON.parse(raw); }
+      catch (e) {
+        try { cfg = (new Function('return (' + raw + ')'))(); }   // tırnaksız anahtarlar için
+        catch (e2) { toast('Config okunamadı — tamamını kopyaladığınızdan emin olun'); return; }
+      }
+      if (!cfg || !cfg.apiKey || !cfg.projectId) { toast('apiKey / projectId eksik'); return; }
+      localStorage.setItem('cnar_fb_cfg', JSON.stringify(cfg));
+      toast('Kaydedildi — sayfa yenileniyor');
+      setTimeout(() => location.reload(), 900);
+    });
+    const cl = $('#fb_clear');
+    if (cl) cl.addEventListener('click', () => {
+      localStorage.removeItem('cnar_fb_cfg');
+      toast('Kaldırıldı — sayfa yenileniyor');
+      setTimeout(() => location.reload(), 900);
+    });
+  }
+  $('#fbBtn').addEventListener('click', fbModal);
+  $('#noticeBtn').addEventListener('click', fbModal);
+  $('#modeBadge').addEventListener('click', fbModal);
+
+  /* ============================================================
      MODAL
      ============================================================ */
-  function openModal(html) {
-    $('#modal').innerHTML = html;
-    $('#modalBack').classList.add('open');
-  }
+  function openModal(html) { $('#modal').innerHTML = html; $('#modalBack').classList.add('open'); }
   function closeModal() { $('#modalBack').classList.remove('open'); }
   $('#modalBack').addEventListener('click', e => {
     if (e.target.id === 'modalBack' || e.target.closest('[data-close]')) closeModal();
@@ -1723,32 +1785,36 @@ window.AVATARS = {
      BAŞLAT
      ============================================================ */
   async function boot() {
+    temaBaslat();
+    saatBaslat();
+    havaGetir(); setInterval(havaGetir, 10 * 60 * 1000);
     initLock();
     renderStores();
+    $('#verBadge').textContent = CFG.surum || '';
 
     const mode = await Store.init();
     const badge = $('#modeBadge');
-    badge.textContent = mode === 'live' ? '🟢 Ortak veritabanı bağlı' : '🟡 Yerel mod (veriler bu tarayıcıda)';
+    badge.textContent = mode === 'live' ? '🟢 Ortak veritabanı bağlı' : '🟡 Yerel mod — bağlamak için tıklayın';
     badge.className = 'mode-badge ' + (mode === 'live' ? 'live' : 'local');
+    $('#localNotice').style.display = mode === 'live' ? 'none' : 'flex';
 
     Store.subscribe('sessions', s => {
-      renderPresence(s); renderUserStats(s); renderSessionTable(s);
+      renderLivebar(s); renderPresence(s); renderUserStats(s); renderSessionTable(s);
       renderStats(s, Store.get('tasks'), Store.get('stock'));
     });
-    Store.subscribe('tasks', t => {
-      renderTasks(t);
-      renderStats(Store.get('sessions'), t, Store.get('stock'));
-    });
-    Store.subscribe('stock', s => {
-      renderStock(s);
-      renderStats(Store.get('sessions'), Store.get('tasks'), s);
-    });
+    Store.subscribe('tasks', t => { renderTasks(t); renderStats(Store.get('sessions'), t, Store.get('stock')); });
+    Store.subscribe('stock', s => { renderStock(s); renderStats(Store.get('sessions'), Store.get('tasks'), s); });
     Store.subscribe('activity', renderFeed);
     Store.subscribe('meta', renderNotes);
 
-    // ilk boş render
-    renderPresence([]); renderUserStats([]); renderSessionTable([]);
+    renderLivebar([]); renderPresence([]); renderUserStats([]); renderSessionTable([]);
     renderStats([], [], []); renderTasks([]); renderStock([]); renderFeed([]);
+
+    // çevrimiçi durumu zamanla eskiyebilir — 10 sn'de bir tazele
+    setInterval(() => {
+      const s = Store.get('sessions');
+      renderLivebar(s); renderPresence(s); renderStats(s, Store.get('tasks'), Store.get('stock'));
+    }, 10000);
   }
 
   boot();
@@ -1771,11 +1837,15 @@ window.ALIM_DATA={"asins":[["B00ME8SZFS","Z80","Mossberg 500/590 Series Shotgun 
   const P  = D.partiler;
   const AS = D.asins;
 
-  /* renk rolleri (koyu yüzey için doğrulanmış) */
-  const C_MAL  = '#3987e5';   // maliyet   — blue
-  const C_KAR  = '#199e70';   // net kâr   — aqua
-  const C_ORAN = '#f0a83c';   // oran      — panel altını
-  const INK1 = '#e8ecf3', INK2 = '#98a2b3', INK3 = '#5f6b7e', GRID = '#242b38';
+  /* renk rolleri — CSS değişkenlerinden okunur (tema ile değişir) */
+  const cssVar = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+  let C_MAL, C_KAR, C_ORAN, INK1, INK2, INK3, GRID, SURF;
+  function renkleriOku() {
+    C_MAL = cssVar('--c-mal'); C_KAR = cssVar('--c-kar'); C_ORAN = cssVar('--c-oran');
+    INK1 = cssVar('--txt'); INK2 = cssVar('--txt-2'); INK3 = cssVar('--txt-3');
+    GRID = cssVar('--c-grid'); SURF = cssVar('--card');
+  }
+  renkleriOku();
 
   /* ---------- biçimlendirme ---------- */
   const nf = (n, d) => (Number(n) || 0).toLocaleString('tr-TR', { minimumFractionDigits: d || 0, maximumFractionDigits: d || 0 });
@@ -1891,7 +1961,7 @@ window.ALIM_DATA={"asins":[["B00ME8SZFS","Z80","Mossberg 500/590 Series Shotgun 
     const d = P.map((p, i) => `${i ? 'L' : 'M'}${x(i).toFixed(1)},${y(p.netOran).toFixed(1)}`).join(' ');
     s += `<path d="${d}" fill="none" stroke="${C_ORAN}" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>`;
     P.forEach((p, i) => {
-      s += `<circle cx="${x(i)}" cy="${y(p.netOran)}" r="3.4" fill="${C_ORAN}" stroke="#151922" stroke-width="2"/>`;
+      s += `<circle cx="${x(i)}" cy="${y(p.netOran)}" r="3.4" fill="${C_ORAN}" stroke="${SURF}" stroke-width="2"/>`;
       s += `<rect class="vhit2" data-i="${i}" x="${x(i) - iw / P.length / 2}" y="${m.t}" width="${iw / P.length}" height="${ih}" fill="transparent"/>`;
     });
     s += `<text x="${m.l}" y="${H - 6}" fill="${INK3}" font-size="10.5">ilk alım</text>`;
@@ -2038,6 +2108,17 @@ window.ALIM_DATA={"asins":[["B00ME8SZFS","Z80","Mossberg 500/590 Series Shotgun 
     });
 
     $('#urunAra').addEventListener('input', e => urunTablo(e.target.value));
+
+    // tema değişince grafikleri yeniden çiz
+    document.addEventListener('temaDegisti', () => {
+      renkleriOku();
+      grupluBar($('#chartBar')); oranCizgi($('#chartOran')); urunBar($('#chartUrun'));
+      partiTablo();
+    });
+    // efsane renkleri
+    const lg = document.querySelectorAll('.legend i');
+    if (lg[0]) lg[0].style.background = C_MAL;
+    if (lg[1]) lg[1].style.background = C_KAR;
   }
 
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
