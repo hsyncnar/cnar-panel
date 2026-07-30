@@ -1081,12 +1081,12 @@ window.APP_CONFIG = {
      girebilirsiniz (dosyayı düzenlemenize gerek kalmaz).
   ------------------------------------------------------------------- */
   firebase: {
-    apiKey: '',
-    authDomain: '',
-    projectId: '',
-    storageBucket: '',
-    messagingSenderId: '',
-    appId: ''
+    apiKey: 'AIzaSyCJVy0HodmkSsVIzhs1dCLkvazC7vzyHKw',
+    authDomain: 'cnar-panel.firebaseapp.com',
+    projectId: 'cnar-panel',
+    storageBucket: 'cnar-panel.firebasestorage.app',
+    messagingSenderId: '1012626011835',
+    appId: '1:1012626011835:web:be2a021eaeb15d28d09b9e'
   }
 };
 
@@ -1216,6 +1216,7 @@ window.AVATARS = {
           emit(col);
         }, err => {
           console.error('Firestore dinleme hatası:', col, err);
+          if (Store.onError) Store.onError(err);
         });
       });
     },
@@ -1972,6 +1973,21 @@ window.AVATARS = {
     initLock();
     renderStores();
     $('#verBadge').textContent = CFG.surum || '';
+
+    let hataGosterildi = false;
+    Store.onError = err => {
+      if (hataGosterildi) return;
+      hataGosterildi = true;
+      const badge = $('#modeBadge');
+      badge.textContent = '🔴 Veritabanına erişilemiyor';
+      badge.className = 'mode-badge local';
+      const n = $('#localNotice');
+      n.style.display = 'flex';
+      n.querySelector('div').innerHTML =
+        '<b>Firestore\'a bağlanılamadı.</b> Firebase konsolunda <b>Firestore Database</b> oluşturulmuş ve ' +
+        '<b>Rules</b> sekmesinde <code>allow read, write: if true;</code> yayınlanmış olmalı. ' +
+        'Hata: <code>' + esc(err && err.code ? err.code : String(err)) + '</code>';
+    };
 
     const mode = await Store.init();
     const badge = $('#modeBadge');
