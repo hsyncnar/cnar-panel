@@ -127,7 +127,8 @@ body.locked{overflow:hidden}
   background:var(--card-2);color:var(--txt-2);cursor:pointer;font-size:15px;
   display:grid;place-items:center;transition:.16s;
 }
-.chip-btn:hover{color:var(--txt);border-color:var(--txt-3)}
+.chip-btn:hover{color:var(--gold);border-color:color-mix(in srgb,var(--gold) 45%,transparent);background:color-mix(in srgb,var(--gold) 9%,var(--card-2))}
+.chip-btn svg{display:block}
 
 .session-chip{
   display:flex;align-items:center;gap:9px;padding:7px 13px;border-radius:999px;
@@ -154,7 +155,7 @@ body.locked{overflow:hidden}
   background:var(--bg-2);font-size:13px;
 }
 .lb{display:flex;align-items:center;gap:9px;color:var(--txt-2)}
-.lb .ico{font-size:15px;line-height:1}
+.lb .ico{width:16px;height:16px;flex:none;opacity:.62}
 .lb b{color:var(--txt);font-weight:600}
 .lb .mono{font-family:'JetBrains Mono',monospace;font-variant-numeric:tabular-nums;font-weight:700;font-size:15px;color:var(--txt)}
 .lb-sep{width:1px;height:20px;background:var(--line)}
@@ -199,8 +200,10 @@ body.locked{overflow:hidden}
 .hero-date{text-align:right;display:flex;flex-direction:column}
 .hero-date span{font-size:19px;font-weight:700}
 .hero-date small{color:var(--txt-3);font-size:12px}
-.section-head{margin-bottom:20px}
-.section-head h1{font-size:27px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.section-head{margin-bottom:22px}
+.section-head h1{font-size:27px;letter-spacing:-.03em;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.section-head .eyebrow{margin-bottom:8px}
+.hero h1{letter-spacing:-.035em}
 
 /* ================= STAT ================= */
 .stat-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;margin-bottom:20px}
@@ -432,39 +435,127 @@ tr.detay td{padding:0;background:var(--bg-2)}
 .ver{margin-left:auto;color:var(--txt-3);font-size:11px}
 
 /* ============================================================
-   KİLİT EKRANI
+   GİRİŞ EKRANI
    ============================================================ */
-.lock{position:fixed;inset:0;z-index:100;display:flex;flex-direction:column;align-items:center;justify-content:center;background:color-mix(in srgb,var(--bg) 55%,transparent);backdrop-filter:blur(3px);transition:opacity .5s ease,visibility .5s}
+.lock{
+  position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:24px;
+  background:color-mix(in srgb,var(--bg) 62%,transparent);
+  backdrop-filter:blur(4px);transition:opacity .5s ease,visibility .5s;
+}
 body:not(.locked) .lock{opacity:0;visibility:hidden;pointer-events:none}
-.lock-inner{width:min(450px,92vw);background:var(--card);border:1px solid var(--line-2);border-radius:24px;padding:34px 30px 30px;box-shadow:var(--shadow);text-align:center;position:relative}
-.lock-step{display:none}
-.lock-step.active{display:block;animation:fade .3s ease}
-.lock-logo{width:54px;height:54px;border-radius:16px;margin:0 auto 16px;background:linear-gradient(135deg,var(--gold),#e0632c);display:grid;place-items:center;font-weight:800;font-size:18px;color:#1a1206;box-shadow:0 8px 24px rgba(240,168,60,.32)}
-.lock h1{font-size:23px;margin-bottom:6px}
-.lock-sub{color:var(--txt-2);font-size:13.5px;margin:0 0 22px}
-.lock-foot{margin-top:22px;font-size:12px;color:var(--txt-3)}
-.who-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
-.wc{background:var(--card-2);border:1px solid var(--line);border-radius:16px;padding:18px 12px;cursor:pointer;transition:.2s;text-align:center}
-.wc:hover{border-color:var(--gold);transform:translateY(-3px)}
-.wc img{width:76px;height:76px;border-radius:50%;object-fit:cover;border:2px solid var(--line-2);margin-bottom:11px;transition:.2s}
-.wc:hover img{border-color:var(--gold)}
-.wc strong{display:block;font-size:13.5px;line-height:1.35}
-.wc span{display:block;font-size:11px;color:var(--txt-3);margin-top:3px}
-.back{position:absolute;left:20px;top:20px;background:none;border:0;color:var(--txt-3);font-size:12.5px;cursor:pointer;font-weight:600}
+
+.auth{
+  width:min(880px,100%);display:grid;grid-template-columns:326px 1fr;
+  background:var(--card);border:1px solid var(--line-2);border-radius:22px;
+  overflow:hidden;box-shadow:0 40px 90px rgba(0,0,0,.45);
+}
+:root[data-theme="light"] .auth{box-shadow:0 34px 80px rgba(23,35,60,.18)}
+
+/* --- sol marka paneli --- */
+.auth-brand{
+  padding:34px 30px;display:flex;flex-direction:column;justify-content:space-between;
+  background:linear-gradient(158deg,#1c2331 0%,#141a26 48%,#211a17 100%);
+  position:relative;color:#e8ecf3;
+}
+.auth-brand::after{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(340px 200px at 84% 6%, rgba(240,168,60,.20), transparent 68%);
+}
+.ab-top{display:flex;align-items:center;gap:12px;position:relative}
+.ab-mark{
+  width:42px;height:42px;border-radius:13px;flex:none;
+  background:linear-gradient(135deg,var(--gold),#dd5f28);
+  display:grid;place-items:center;font-weight:800;font-size:15px;color:#1a1206;
+  box-shadow:0 8px 22px rgba(240,168,60,.34);
+}
+.ab-name{display:flex;flex-direction:column;line-height:1.3}
+.ab-name strong{font-size:14.5px;letter-spacing:.01em}
+.ab-name span{font-size:11.5px;color:rgba(232,236,243,.55)}
+.ab-mid{position:relative;margin:44px 0}
+.ab-mid h2{font-size:25px;line-height:1.25;letter-spacing:-.025em;margin-bottom:12px}
+.ab-mid p{margin:0;font-size:13.5px;line-height:1.65;color:rgba(232,236,243,.62)}
+.ab-foot{display:flex;gap:24px;position:relative;padding-top:20px;border-top:1px solid rgba(255,255,255,.09)}
+.ab-stat{display:flex;flex-direction:column;line-height:1.25}
+.ab-stat b{font-size:19px;font-weight:800;color:var(--gold);letter-spacing:-.02em}
+.ab-stat span{font-size:10.5px;color:rgba(232,236,243,.5);text-transform:uppercase;letter-spacing:.08em;font-weight:600;margin-top:3px}
+
+/* --- sağ giriş paneli --- */
+.auth-main{padding:38px 40px 30px;display:flex;flex-direction:column;position:relative}
+.auth-step{display:none}
+.auth-step.active{display:block;animation:fade .32s ease}
+.eyebrow{
+  display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--gold);margin-bottom:10px;
+}
+.auth-main h1{font-size:25px;letter-spacing:-.03em;margin-bottom:7px}
+.auth-sub{color:var(--txt-2);font-size:13.5px;margin:0 0 24px;line-height:1.6}
+.auth-note{
+  margin-top:auto;padding-top:22px;display:flex;align-items:center;gap:8px;
+  font-size:11.5px;color:var(--txt-3);
+}
+
+/* profil listesi */
+.who-list{display:flex;flex-direction:column;gap:10px}
+.who-row{
+  display:flex;align-items:center;gap:14px;width:100%;text-align:left;cursor:pointer;
+  padding:13px 15px;border-radius:14px;background:var(--card-2);
+  border:1px solid var(--line);transition:.18s;color:inherit;
+}
+.who-row:hover{border-color:color-mix(in srgb,var(--gold) 55%,transparent);background:color-mix(in srgb,var(--gold) 7%,var(--card-2));transform:translateX(3px)}
+.who-row img{width:46px;height:46px;border-radius:50%;object-fit:cover;flex:none;border:1px solid var(--line-2)}
+.wr-txt{display:flex;flex-direction:column;line-height:1.4;flex:1;min-width:0}
+.wr-txt strong{font-size:14px;font-weight:600}
+.wr-txt span{font-size:11.5px;color:var(--txt-3)}
+.wr-tag{
+  font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  padding:4px 9px;border-radius:6px;background:var(--card);border:1px solid var(--line);
+  color:var(--txt-3);flex:none;
+}
+.wr-ar{width:15px;height:15px;color:var(--txt-3);flex:none;transition:.18s}
+.who-row:hover .wr-ar{color:var(--gold);transform:translateX(2px)}
+
+/* geri */
+.back{
+  position:absolute;right:34px;top:32px;background:none;border:0;color:var(--txt-3);
+  font-size:12.5px;cursor:pointer;font-weight:600;display:flex;align-items:center;gap:5px;padding:4px;
+}
 .back:hover{color:var(--txt)}
-.pin-avatar{width:78px;height:78px;border-radius:50%;object-fit:cover;border:2px solid var(--gold);margin:6px auto 14px;display:block}
-.dots{display:flex;gap:13px;justify-content:center;margin:0 0 24px}
-.dots span{width:13px;height:13px;border-radius:50%;background:transparent;border:2px solid var(--line-2);transition:.2s}
-.dots span.on{background:var(--gold);border-color:var(--gold);transform:scale(1.12)}
-.dots.shake{animation:shake .4s}
-@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-9px)}40%{transform:translateX(9px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}
-.keypad{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;max-width:250px;margin:0 auto}
-.keypad button{aspect-ratio:1/1;border-radius:50%;background:var(--card-2);border:1px solid var(--line);color:var(--txt);font-size:20px;font-weight:600;cursor:pointer;transition:.12s;font-family:'JetBrains Mono',monospace}
-.keypad button:hover:not(:disabled){background:var(--line)}
-.keypad button:active:not(:disabled){transform:scale(.93)}
-.keypad .blank{opacity:0;pointer-events:none;border:0;background:none}
-.keypad .del{font-size:17px;color:var(--txt-2)}
-.err{color:var(--red);font-size:12.5px;height:18px;margin:14px 0 0;font-weight:600}
+
+/* seçilen kullanıcı */
+.pin-user{display:flex;align-items:center;gap:12px;margin-bottom:26px;padding-bottom:20px;border-bottom:1px solid var(--line)}
+.pin-user img{width:44px;height:44px;border-radius:50%;object-fit:cover;border:1px solid var(--line-2)}
+.pin-user div{display:flex;flex-direction:column;line-height:1.4}
+.pin-user strong{font-size:14px;font-weight:600}
+.pin-user span{font-size:11.5px;color:var(--txt-3)}
+
+/* kod kutuları */
+.pin-boxes{display:flex;gap:12px;margin-bottom:8px}
+.pin-boxes input{
+  width:58px;height:64px;text-align:center;font-size:24px;font-weight:700;
+  font-family:'JetBrains Mono',monospace;color:var(--txt);
+  background:var(--bg-2);border:1px solid var(--line-2);border-radius:12px;
+  transition:.16s;padding:0;
+}
+.pin-boxes input:focus{
+  outline:none;border-color:var(--gold);background:var(--card-2);
+  box-shadow:0 0 0 3px color-mix(in srgb,var(--gold) 18%,transparent);
+}
+.pin-boxes input.dolu{border-color:color-mix(in srgb,var(--gold) 55%,transparent)}
+.pin-boxes.hata input{border-color:var(--red);animation:shake .4s}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-7px)}40%{transform:translateX(7px)}60%{transform:translateX(-4px)}80%{transform:translateX(4px)}}
+.err{color:var(--red);font-size:12.5px;min-height:19px;margin:8px 0 14px;font-weight:600}
+.btn.full{width:100%;padding:13px;font-size:14px;border-radius:12px}
+
+@media(max-width:760px){
+  .auth{grid-template-columns:1fr}
+  .auth-brand{padding:24px 26px}
+  .ab-mid{margin:22px 0}
+  .ab-mid h2{font-size:20px}
+  .ab-mid p{display:none}
+  .auth-main{padding:28px 26px 24px}
+  .back{right:22px;top:24px}
+  .pin-boxes input{width:100%;height:58px;font-size:21px}
+}
 
 /* ================= MODAL ================= */
 .modal-back{position:fixed;inset:0;z-index:200;background:color-mix(in srgb,var(--bg) 72%,transparent);backdrop-filter:blur(5px);display:none;align-items:center;justify-content:center;padding:20px}
@@ -529,19 +620,31 @@ body:not(.locked) .lock{opacity:0;visibility:hidden;pointer-events:none}
           <span id="whoRole">—</span>
         </div>
       </div>
-      <button class="chip-btn" id="themeBtn" title="Aydınlık / karanlık">🌙</button>
-      <button class="chip-btn" id="fbBtn" title="Ortak veritabanı ayarı">⚙</button>
+      <button class="chip-btn" id="themeBtn" title="Aydınlık / karanlık"></button>
+      <button class="chip-btn" id="fbBtn" title="Ortak veritabanı ayarı">
+        <svg width="17" height="17" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="10" cy="10" r="2.6"/>
+          <path d="M16.1 12.2a1.4 1.4 0 0 0 .28 1.54l.05.05a1.7 1.7 0 1 1-2.4 2.4l-.05-.05a1.4 1.4 0 0 0-1.54-.28 1.4 1.4 0 0 0-.85 1.28v.14a1.7 1.7 0 1 1-3.4 0v-.07a1.4 1.4 0 0 0-.92-1.28 1.4 1.4 0 0 0-1.54.28l-.05.05a1.7 1.7 0 1 1-2.4-2.4l.05-.05a1.4 1.4 0 0 0 .28-1.54 1.4 1.4 0 0 0-1.28-.85h-.14a1.7 1.7 0 1 1 0-3.4h.07a1.4 1.4 0 0 0 1.28-.92 1.4 1.4 0 0 0-.28-1.54l-.05-.05a1.7 1.7 0 1 1 2.4-2.4l.05.05a1.4 1.4 0 0 0 1.54.28h.07a1.4 1.4 0 0 0 .85-1.28v-.14a1.7 1.7 0 1 1 3.4 0v.07a1.4 1.4 0 0 0 .85 1.28 1.4 1.4 0 0 0 1.54-.28l.05-.05a1.7 1.7 0 1 1 2.4 2.4l-.05.05a1.4 1.4 0 0 0-.28 1.54v.07a1.4 1.4 0 0 0 1.28.85h.14a1.7 1.7 0 1 1 0 3.4h-.07a1.4 1.4 0 0 0-1.28.85Z" stroke-linejoin="round"/></svg>
+      </button>
       <button class="btn ghost sm" id="logoutBtn" title="Çıkış yap">Çıkış</button>
     </div>
   </header>
 
   <!-- ============ CANLI ŞERİT ============ -->
   <div class="livebar">
-    <div class="lb"><span class="ico">🗓</span><b id="lbDate">—</b></div>
+    <div class="lb">
+      <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
+        <rect x="2.2" y="3.2" width="11.6" height="10.6" rx="2"/><path d="M2.2 6.4h11.6M5.4 2v2.4M10.6 2v2.4"/></svg>
+      <b id="lbDate">—</b>
+    </div>
     <div class="lb-sep"></div>
-    <div class="lb"><span class="ico">⏱</span><span class="mono" id="lbClock">--:--:--</span></div>
+    <div class="lb">
+      <svg class="ico" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4">
+        <circle cx="8" cy="8" r="6"/><path d="M8 4.6V8l2.4 1.6" stroke-linecap="round"/></svg>
+      <span class="mono" id="lbClock">--:--:--</span>
+    </div>
     <div class="lb-sep"></div>
-    <div class="lb" id="lbWeather"><span class="ico">🌡</span><span>İstanbul <b>—</b></span></div>
+    <div class="lb" id="lbWeather"><span>İstanbul <b>—</b></span></div>
     <div class="lb-live" id="lbLive"></div>
   </div>
 
@@ -570,7 +673,8 @@ body:not(.locked) .lock{opacity:0;visibility:hidden;pointer-events:none}
       </div>
 
       <div class="notice" id="localNotice" style="display:none">
-        <span style="font-size:17px;line-height:1">⚠️</span>
+        <svg viewBox="0 0 16 16" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.5" style="flex:none;margin-top:1px">
+          <path d="M8 2.6 14.4 13.4H1.6L8 2.6Z" stroke-linejoin="round"/><path d="M8 6.6v3.2M8 11.6h.01" stroke-linecap="round"/></svg>
         <div style="flex:1">
           <b>Şu an yerel moddasınız.</b> Giriş saatleri ve görevler yalnızca bu tarayıcıda saklanıyor,
           bu yüzden karşı tarafın oturumunu göremiyorsunuz. Ortak veritabanını bağladığınızda
@@ -609,6 +713,7 @@ body:not(.locked) .lock{opacity:0;visibility:hidden;pointer-events:none}
     <!-- ================= MAĞAZALAR ================= -->
     <section class="panel" data-panel="magazalar">
       <div class="section-head">
+        <span class="eyebrow">Hızlı Erişim</span>
         <h1>Mağazalar</h1>
         <p class="sub">Panellere ve mağaza sayfalarına hızlı erişim.</p>
       </div>
@@ -628,6 +733,7 @@ body:not(.locked) .lock{opacity:0;visibility:hidden;pointer-events:none}
     <!-- ================= ALIM RAPORU ================= -->
     <section class="panel" data-panel="rapor">
       <div class="section-head">
+        <span class="eyebrow">Finansal Analiz</span>
         <h1>Amazon Alım Raporu <span class="badge amazon">CNAR LLC · Monstrum</span></h1>
         <p class="sub">Bugüne kadarki tüm FBA gönderimlerinin maliyet, kâr ve ürün kırılımı.</p>
       </div>
@@ -703,6 +809,7 @@ body:not(.locked) .lock{opacity:0;visibility:hidden;pointer-events:none}
     <!-- ================= STOK ================= -->
     <section class="panel" data-panel="stok">
       <div class="section-head">
+        <span class="eyebrow">Operasyon</span>
         <h1>Aylık Stok Alımı <span class="badge amazon">Amazon · CNAR LLC</span></h1>
         <p class="sub">Her ay yapılan düzenli stoklu alımların takibi.</p>
       </div>
@@ -739,13 +846,14 @@ body:not(.locked) .lock{opacity:0;visibility:hidden;pointer-events:none}
       </div>
 
       <div class="hint">
-        📄 Excel dosyanızı sohbete yüklerseniz bu tabloyu sizin için otomatik doldurabilirim.
+        Excel dosyanızı sohbete yüklerseniz bu tabloyu sizin için otomatik doldurabilirim.
       </div>
     </section>
 
     <!-- ================= GÖREVLER ================= -->
     <section class="panel" data-panel="gorevler">
       <div class="section-head">
+        <span class="eyebrow">İş Takibi</span>
         <h1>Görevler</h1>
         <p class="sub">İkinizin üstlendiği işler ve durumları.</p>
       </div>
@@ -768,6 +876,7 @@ body:not(.locked) .lock{opacity:0;visibility:hidden;pointer-events:none}
     <!-- ================= AKTİVİTE ================= -->
     <section class="panel" data-panel="aktivite">
       <div class="section-head">
+        <span class="eyebrow">Canlı Takip</span>
         <h1>Aktivite &amp; Sayaç</h1>
         <p class="sub">Kim, ne zaman girdi ve ne kadar kaldı.</p>
       </div>
@@ -810,41 +919,69 @@ body:not(.locked) .lock{opacity:0;visibility:hidden;pointer-events:none}
 
 <!-- ============ KİLİT EKRANI ============ -->
 <div id="lock" class="lock">
-  <div class="lock-inner">
+  <div class="auth">
 
-    <!-- Adım 1: kim giriyor -->
-    <div class="lock-step active" id="stepWho">
-      <div class="lock-logo">CM</div>
-      <h1>Kimsiniz?</h1>
-      <p class="lock-sub">Devam etmek için profilinizi seçin.</p>
-      <div class="who-grid" id="whoGrid"></div>
-    </div>
+    <!-- sol: marka -->
+    <aside class="auth-brand">
+      <div class="ab-top">
+        <div class="ab-mark">CM</div>
+        <div class="ab-name"><strong>CNAR&nbsp;LLC</strong><span>Maventa Home</span></div>
+      </div>
+      <div class="ab-mid">
+        <h2>Ortak Çalışma Paneli</h2>
+        <p>Amazon, Trendyol ve Hepsiburada operasyonlarının tek ekranda takibi.</p>
+      </div>
+      <div class="ab-foot">
+        <div class="ab-stat"><b>3</b><span>Pazaryeri</span></div>
+        <div class="ab-stat"><b>2</b><span>Ortak</span></div>
+        <div class="ab-stat"><b>29</b><span>Alım kaydı</span></div>
+      </div>
+    </aside>
 
-    <!-- Adım 2: şifre -->
-    <div class="lock-step" id="stepPin">
-      <button class="back" id="backBtn">← Geri</button>
-      <img class="pin-avatar" id="pinAvatar" alt="">
-      <h1 id="pinHello">Merhaba</h1>
-      <p class="lock-sub">4 haneli şifreyi girin.</p>
+    <!-- sağ: giriş -->
+    <section class="auth-main">
 
-      <div class="dots" id="pinDots">
-        <span></span><span></span><span></span><span></span>
+      <div class="auth-step active" id="stepWho">
+        <span class="eyebrow">Güvenli Erişim</span>
+        <h1>Hesabınızı seçin</h1>
+        <p class="auth-sub">Devam etmek için profilinizi seçin.</p>
+        <div class="who-list" id="whoGrid"></div>
       </div>
 
-      <div class="keypad" id="keypad">
-        <button data-k="1">1</button><button data-k="2">2</button><button data-k="3">3</button>
-        <button data-k="4">4</button><button data-k="5">5</button><button data-k="6">6</button>
-        <button data-k="7">7</button><button data-k="8">8</button><button data-k="9">9</button>
-        <button class="blank" disabled></button>
-        <button data-k="0">0</button>
-        <button data-k="del" class="del">⌫</button>
+      <div class="auth-step" id="stepPin">
+        <button class="back" id="backBtn">
+          <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round"><path d="M10 3 L5 8 L10 13"/></svg>
+          Geri
+        </button>
+
+        <div class="pin-user">
+          <img id="pinAvatar" alt="">
+          <div><strong id="pinHello">—</strong><span id="pinRole">—</span></div>
+        </div>
+
+        <span class="eyebrow">Doğrulama</span>
+        <h1>Erişim kodu</h1>
+        <p class="auth-sub">4 haneli kodunuzu girin.</p>
+
+        <div class="pin-boxes" id="pinBoxes">
+          <input type="password" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="1. hane">
+          <input type="password" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="2. hane">
+          <input type="password" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="3. hane">
+          <input type="password" inputmode="numeric" maxlength="1" autocomplete="off" aria-label="4. hane">
+        </div>
+
+        <p class="err" id="pinErr"></p>
+        <button class="btn full" id="pinSubmit">Giriş yap</button>
       </div>
 
-      <p class="err" id="pinErr"></p>
-    </div>
-
+      <div class="auth-note">
+        <svg viewBox="0 0 16 16" width="13" height="13" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="3.2" y="7" width="9.6" height="6.4" rx="1.6"/><path d="M5.6 7V5a2.4 2.4 0 0 1 4.8 0v2"/></svg>
+        Bu panel yalnızca yetkili iki kullanıcıya açıktır.
+      </div>
+    </section>
   </div>
-  <div class="lock-foot">🔒 Bu panel yalnızca Hüseyin Çınar ve Mustafa Ertuğrul içindir.</div>
 </div>
 
 <!-- ============ MODAL ============ -->
@@ -1200,9 +1337,14 @@ window.AVATARS = {
     const h = istSaat();
     return (h >= (CFG.gunDogumu || 7) && h < (CFG.gunBatimi || 19)) ? 'light' : 'dark';
   };
+  const IKON_GUNES = `<svg viewBox="0 0 20 20" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+    <circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v1.8M10 16.4v1.8M18.2 10h-1.8M3.6 10H1.8M15.8 4.2l-1.3 1.3M5.5 14.5l-1.3 1.3M15.8 15.8l-1.3-1.3M5.5 5.5 4.2 4.2"/></svg>`;
+  const IKON_AY = `<svg viewBox="0 0 20 20" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round">
+    <path d="M16.2 12.4A6.9 6.9 0 0 1 7.6 3.8a6.9 6.9 0 1 0 8.6 8.6Z"/></svg>`;
+
   function uygulaTema(t) {
     document.documentElement.setAttribute('data-theme', t);
-    $('#themeBtn').textContent = t === 'light' ? '☀️' : '🌙';
+    $('#themeBtn').innerHTML = t === 'light' ? IKON_GUNES : IKON_AY;
     $('#themeBtn').title = (t === 'light' ? 'Aydınlık' : 'Karanlık') + ' mod — değiştirmek için tıklayın';
     document.dispatchEvent(new CustomEvent('temaDegisti', { detail: t }));
   }
@@ -1242,16 +1384,28 @@ window.AVATARS = {
     gun(); setInterval(gun, 1000);
   }
 
+  /* hava durumu ikonları — ince çizgi SVG */
+  const svgW = d => `<svg class="ico" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round">${d}</svg>`;
+  const BULUT = '<path d="M5.6 15.2a3.4 3.4 0 0 1-.3-6.8 4.6 4.6 0 0 1 8.9-1 3.9 3.9 0 0 1-.6 7.8H5.6Z"/>';
+  const IKON_HAVA = {
+    gunes: svgW('<circle cx="10" cy="10" r="3.6"/><path d="M10 1.8v1.8M10 16.4v1.8M18.2 10h-1.8M3.6 10H1.8M15.8 4.2l-1.3 1.3M5.5 14.5l-1.3 1.3M15.8 15.8l-1.3-1.3M5.5 5.5 4.2 4.2"/>'),
+    azbulut: svgW('<circle cx="7.4" cy="7" r="2.8"/><path d="M7.4 1.9v1.3M12.5 7h-1.3M11 3.4l-.9.9M3.8 3.4l.9.9"/><path d="M8 16.4a3 3 0 0 1-.3-6 4.1 4.1 0 0 1 7.9-.9 3.5 3.5 0 0 1-.5 6.9H8Z"/>'),
+    bulut: svgW(BULUT),
+    sis: svgW(BULUT + '<path d="M4 17.6h12M6.4 19.4h7.2" opacity=".7"/>'),
+    yagmur: svgW('<path d="M5.6 12.8a3.4 3.4 0 0 1-.3-6.8 4.6 4.6 0 0 1 8.9-1 3.9 3.9 0 0 1-.6 7.8H5.6Z"/><path d="M7 15.4 6.2 18M10.2 15.4 9.4 18M13.4 15.4 12.6 18"/>'),
+    kar: svgW('<path d="M5.6 12.8a3.4 3.4 0 0 1-.3-6.8 4.6 4.6 0 0 1 8.9-1 3.9 3.9 0 0 1-.6 7.8H5.6Z"/><path d="M6.6 16.2h.01M10 16.2h.01M13.4 16.2h.01M8.3 18.4h.01M11.7 18.4h.01" stroke-width="2"/>'),
+    firtina: svgW('<path d="M5.6 12.6a3.4 3.4 0 0 1-.3-6.8 4.6 4.6 0 0 1 8.9-1 3.9 3.9 0 0 1-.6 7.8H5.6Z"/><path d="M10.6 14.2 8 17.4h3l-2.2 2.8"/>')
+  };
   const HAVA_KOD = {
-    0: ['☀️', 'Açık'], 1: ['🌤', 'Az bulutlu'], 2: ['⛅', 'Parçalı bulutlu'], 3: ['☁️', 'Kapalı'],
-    45: ['🌫', 'Sisli'], 48: ['🌫', 'Kırağılı sis'],
-    51: ['🌦', 'Hafif çisenti'], 53: ['🌦', 'Çisenti'], 55: ['🌦', 'Yoğun çisenti'],
-    61: ['🌧', 'Hafif yağmur'], 63: ['🌧', 'Yağmurlu'], 65: ['🌧', 'Şiddetli yağmur'],
-    66: ['🌧', 'Donan yağmur'], 67: ['🌧', 'Donan yağmur'],
-    71: ['🌨', 'Hafif kar'], 73: ['🌨', 'Kar'], 75: ['🌨', 'Yoğun kar'], 77: ['🌨', 'Kar taneleri'],
-    80: ['🌦', 'Sağanak'], 81: ['🌦', 'Sağanak'], 82: ['⛈', 'Kuvvetli sağanak'],
-    85: ['🌨', 'Kar sağanağı'], 86: ['🌨', 'Kar sağanağı'],
-    95: ['⛈', 'Gök gürültülü'], 96: ['⛈', 'Dolulu fırtına'], 99: ['⛈', 'Dolulu fırtına']
+    0: ['gunes', 'Açık'], 1: ['azbulut', 'Az bulutlu'], 2: ['azbulut', 'Parçalı bulutlu'], 3: ['bulut', 'Kapalı'],
+    45: ['sis', 'Sisli'], 48: ['sis', 'Kırağılı sis'],
+    51: ['yagmur', 'Hafif çisenti'], 53: ['yagmur', 'Çisenti'], 55: ['yagmur', 'Yoğun çisenti'],
+    61: ['yagmur', 'Hafif yağmur'], 63: ['yagmur', 'Yağmurlu'], 65: ['yagmur', 'Şiddetli yağmur'],
+    66: ['yagmur', 'Donan yağmur'], 67: ['yagmur', 'Donan yağmur'],
+    71: ['kar', 'Hafif kar'], 73: ['kar', 'Kar'], 75: ['kar', 'Yoğun kar'], 77: ['kar', 'Kar taneleri'],
+    80: ['yagmur', 'Sağanak'], 81: ['yagmur', 'Sağanak'], 82: ['firtina', 'Kuvvetli sağanak'],
+    85: ['kar', 'Kar sağanağı'], 86: ['kar', 'Kar sağanağı'],
+    95: ['firtina', 'Gök gürültülü'], 96: ['firtina', 'Dolulu fırtına'], 99: ['firtina', 'Dolulu fırtına']
   };
 
   async function havaGetir() {
@@ -1263,62 +1417,89 @@ window.AVATARS = {
       if (!r.ok) throw new Error(r.status);
       const j = await r.json();
       const c = j.current;
-      const [ikon, ad] = HAVA_KOD[c.weather_code] || ['🌡', '—'];
+      const [ikon, ad] = HAVA_KOD[c.weather_code] || ['bulut', '—'];
       $('#lbWeather').innerHTML =
-        `<span class="ico">${ikon}</span><span>${esc(h.sehir)} <b>${Math.round(c.temperature_2m)}°C</b> · ${esc(ad)}</span>`;
+        `${IKON_HAVA[ikon] || IKON_HAVA.bulut}<span>${esc(h.sehir)} <b>${Math.round(c.temperature_2m)}°C</b> · ${esc(ad)}</span>`;
       $('#lbWeather').title = `Nem %${c.relative_humidity_2m} · Rüzgâr ${Math.round(c.wind_speed_10m)} km/s`;
     } catch (e) {
-      $('#lbWeather').innerHTML = `<span class="ico">🌡</span><span>${esc(h.sehir)} <b>—</b> <i style="font-style:normal;color:var(--txt-3)">hava durumu alınamadı</i></span>`;
+      $('#lbWeather').innerHTML = `${IKON_HAVA.bulut}<span>${esc(h.sehir)} <b>—</b> <span style="color:var(--txt-3)">hava durumu alınamadı</span></span>`;
     }
   }
 
   /* ============================================================
      KİLİT EKRANI
      ============================================================ */
-  let pick = null, pin = '';
+  let pick = null, kilitli = false;
+  const kutular = () => $$('#pinBoxes input');
+  const pinDegeri = () => kutular().map(i => i.value).join('');
 
   function buildWhoGrid() {
     $('#whoGrid').innerHTML = USERS.map(u => `
-      <div class="wc" data-u="${u.id}">
-        <img src="${AV[u.id] || ''}" alt="${esc(u.name)}">
-        <div><strong>${esc(u.name)}</strong><span>${esc(u.title)}</span></div>
-      </div>`).join('');
-    $$('#whoGrid .wc').forEach(el => el.addEventListener('click', () => {
+      <button class="who-row" data-u="${u.id}" type="button">
+        <img src="${AV[u.id] || ''}" alt="">
+        <span class="wr-txt"><strong>${esc(u.name)}</strong><span>${esc(u.title)}</span></span>
+        <span class="wr-tag">${u.role === 'admin' ? 'Yönetici' : 'Görüntüleyici'}</span>
+        <svg class="wr-ar" width="15" height="15" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7"
+             stroke-linecap="round" stroke-linejoin="round"><path d="M6 3l5 5-5 5"/></svg>
+      </button>`).join('');
+    $$('#whoGrid .who-row').forEach(el => el.addEventListener('click', () => {
       pick = byId(el.dataset.u);
       $('#pinAvatar').src = AV[pick.id] || '';
-      $('#pinHello').textContent = 'Merhaba, ' + pick.name.split(' ')[0];
+      $('#pinHello').textContent = pick.name;
+      $('#pinRole').textContent = pick.title;
       $('#stepWho').classList.remove('active');
       $('#stepPin').classList.add('active');
-      pin = ''; drawDots(); $('#pinErr').textContent = '';
+      temizlePin();
+      setTimeout(() => kutular()[0].focus(), 260);
     }));
   }
-  const drawDots = () => $$('#pinDots span').forEach((s, i) => s.classList.toggle('on', i < pin.length));
+
+  function temizlePin() {
+    kutular().forEach(i => { i.value = ''; i.classList.remove('dolu'); });
+    $('#pinErr').textContent = '';
+    $('#pinBoxes').classList.remove('hata');
+  }
 
   async function tryPin() {
-    if (await sha256(pin) === CFG.pinHash) unlock(pick);
+    if (kilitli) return;
+    const pin = pinDegeri();
+    if (pin.length < 4) { $('#pinErr').textContent = 'Kodun 4 hanesini de girin.'; return; }
+    kilitli = true;
+    if (await sha256(pin) === CFG.pinHash) { unlock(pick); }
     else {
-      $('#pinDots').classList.add('shake');
-      $('#pinErr').textContent = 'Şifre hatalı, tekrar deneyin.';
-      setTimeout(() => { $('#pinDots').classList.remove('shake'); pin = ''; drawDots(); }, 420);
+      $('#pinBoxes').classList.add('hata');
+      $('#pinErr').textContent = 'Kod hatalı. Lütfen tekrar deneyin.';
+      setTimeout(() => { temizlePin(); kutular()[0].focus(); kilitli = false; }, 550);
     }
   }
+
   function initLock() {
     buildWhoGrid();
     $('#backBtn').addEventListener('click', () => {
-      $('#stepPin').classList.remove('active'); $('#stepWho').classList.add('active');
-      pin = ''; drawDots();
+      $('#stepPin').classList.remove('active'); $('#stepWho').classList.add('active'); temizlePin();
     });
-    $('#keypad').addEventListener('click', e => {
-      const b = e.target.closest('button[data-k]'); if (!b) return;
-      if (b.dataset.k === 'del') pin = pin.slice(0, -1);
-      else if (pin.length < 4) pin += b.dataset.k;
-      drawDots();
-      if (pin.length === 4) setTimeout(tryPin, 160);
-    });
-    document.addEventListener('keydown', e => {
-      if (!document.body.classList.contains('locked') || !$('#stepPin').classList.contains('active')) return;
-      if (/^[0-9]$/.test(e.key) && pin.length < 4) { pin += e.key; drawDots(); if (pin.length === 4) setTimeout(tryPin, 160); }
-      else if (e.key === 'Backspace') { pin = pin.slice(0, -1); drawDots(); }
+    $('#pinSubmit').addEventListener('click', tryPin);
+
+    kutular().forEach((inp, i) => {
+      inp.addEventListener('input', () => {
+        inp.value = inp.value.replace(/\D/g, '').slice(0, 1);
+        inp.classList.toggle('dolu', !!inp.value);
+        if (inp.value && i < 3) kutular()[i + 1].focus();
+        if (pinDegeri().length === 4) setTimeout(tryPin, 120);
+      });
+      inp.addEventListener('keydown', e => {
+        if (e.key === 'Backspace' && !inp.value && i > 0) { kutular()[i - 1].focus(); kutular()[i - 1].value = ''; kutular()[i - 1].classList.remove('dolu'); e.preventDefault(); }
+        if (e.key === 'ArrowLeft' && i > 0) kutular()[i - 1].focus();
+        if (e.key === 'ArrowRight' && i < 3) kutular()[i + 1].focus();
+        if (e.key === 'Enter') tryPin();
+      });
+      inp.addEventListener('paste', e => {
+        const t = (e.clipboardData.getData('text') || '').replace(/\D/g, '').slice(0, 4);
+        if (!t) return;
+        e.preventDefault();
+        kutular().forEach((b, k) => { b.value = t[k] || ''; b.classList.toggle('dolu', !!b.value); });
+        if (t.length === 4) setTimeout(tryPin, 120);
+      });
     });
   }
 
@@ -1554,7 +1735,7 @@ window.AVATARS = {
       const o = byId(t.owner), c = t.status === 'doing' ? 'var(--blue)' : 'var(--txt-3)';
       return `<div class="mini"><span class="st" style="background:${c}"></span>
         <span class="t">${esc(t.title)}</span><span class="o">${o ? esc(o.name.split(' ')[0]) : '—'}</span></div>`;
-    }).join('') : '<div class="empty" style="padding:18px">Açık görev yok 🎉</div>';
+    }).join('') : '<div class="empty" style="padding:18px">Açık görev bulunmuyor</div>';
   }
 
   document.addEventListener('click', async e => {
